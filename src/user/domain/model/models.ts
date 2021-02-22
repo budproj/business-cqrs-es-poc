@@ -4,10 +4,10 @@ import { ModelAggregateRoot } from 'lib/models/aggregate-root'
 import { CREATED_USER } from 'src/user/domain/event/constants'
 import { UserDomainEventProvider } from 'src/user/domain/event/services'
 
-import { UserDTO } from './dtos'
+import { NewUserCommandPayload, NewUserDTO } from './dtos'
 
 interface UserModelInterface {
-  create: (data: UserDTO) => void
+  create: (newUser: NewUserDTO) => void
 }
 
 export class UserModel extends ModelAggregateRoot implements UserModelInterface {
@@ -17,13 +17,13 @@ export class UserModel extends ModelAggregateRoot implements UserModelInterface 
     super()
   }
 
-  public create(user: UserDTO) {
+  public create(newUser: NewUserCommandPayload) {
     this.logger.log({
-      user,
+      newUser,
       message: `New create user request received`,
     })
 
-    const event = this.eventProvider.buildEvent<UserDTO>(CREATED_USER, user, this.command)
+    const event = this.eventProvider.buildEvent<NewUserDTO>(CREATED_USER, newUser, this.command)
     this.dispatchEvent(event)
   }
 }

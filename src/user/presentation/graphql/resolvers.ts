@@ -2,8 +2,8 @@ import { Logger } from '@nestjs/common'
 import { Query, Resolver } from '@nestjs/graphql'
 
 import { CREATE_USER } from 'src/user/application/command/constants'
-import { CommandCreateUserPayloadDTO } from 'src/user/application/command/dtos'
 import { UserApplicationCommandDispatcher } from 'src/user/application/command/services'
+import { NewUserCommandPayload } from 'src/user/domain/model/dtos'
 
 import { UserObject } from './models'
 
@@ -20,7 +20,7 @@ export class UserPresentationGraphQLResolvers {
     const user = {
       firstName: 'bla',
     }
-    await this.userCommandsDispatcher.dispatch<CommandCreateUserPayloadDTO>(CREATE_USER, user)
+    await this.userCommandsDispatcher.dispatch<NewUserCommandPayload>(CREATE_USER, user)
 
     return [
       {
