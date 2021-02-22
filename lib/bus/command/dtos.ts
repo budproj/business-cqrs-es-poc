@@ -1,4 +1,6 @@
-import { Action, ActionMetadata, ActionTracing } from 'lib/bus/action/dtos'
+import { Action, ActionMetadata, ActionParameters, ActionTracing } from 'lib/bus/action/dtos'
+
+export interface CommandParameters extends ActionParameters {}
 
 export abstract class CommandDTO<P = any> extends Action {
   public readonly payload: P
