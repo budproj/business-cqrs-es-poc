@@ -7,10 +7,12 @@
     "start:dev": "run-s docker:up start:watch",
     "start:watch": "nest start --watch",
     "test": "NODE_ENV=test jest",
+    "clean": "rimraf -rf dist",
     "lint": "eslint '{src,config,lib,vendor}/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
     "lint:staged": "lint-staged",
     "format": "prettier --write 'src/**/*.ts'",
+    "compile": "tsc",
     "docker:up": "docker-compose up -d"
   },
   "author": "delucca <delucca@pm.me>",

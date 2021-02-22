@@ -17,19 +17,12 @@ interface TypeORMAuthenticationConfig {
   password: string
 }
 
-export interface TypeORMPatternConfig {
-  directory: TypeORMDirectoryPatternConfig
+interface TypeORMPatternConfig {
   file: TypeORMFilePatternConfig
 }
 
-interface TypeORMDirectoryPatternConfig {
-  entity: string[]
-  migration: string[]
-}
-
 interface TypeORMFilePatternConfig {
-  entity: string
-  migration: string
+  entities: string[]
 }
 
 interface TypeORMLoggingConfig {
@@ -37,56 +30,43 @@ interface TypeORMLoggingConfig {
 }
 
 const {
-  TYPEORM_TYPE,
-  TYPEORM_ENDPOINT_HOST,
-  TYPEORM_ENDPOINT_PORT,
-  TYPEORM_ENDPOINT_DATABASE,
-  TYPEORM_AUTHENTICATION_USER,
-  TYPEORM_AUTHENTICATION_PASSWORD,
-  TYPEORM_PATTERN_DIRECTORY_ENTITY,
-  TYPEORM_PATTERN_DIRECTORY_MIGRATION,
-  TYPEORM_PATTERN_FILE_ENTITY,
-  TYPEORM_PATTERN_FILE_MIGRATION,
-  TYPEORM_LOGGING_ENABLED,
+  TYPEORM_CONNECTION,
+  TYPEORM_HOST,
+  TYPEORM_PORT,
+  TYPEORM_DATABASE,
+  TYPEORM_USERNAME,
+  TYPEORM_PASSWORD,
+  TYPEORM_ENTITIES,
+  TYPEORM_LOGGING,
 } = process.env
 
-const DEFAULT_TYPE = 'mongodb'
-const DEFAULT_ENDPOINT_HOST = 'localhost'
-const DEFAULT_ENDPOINT_PORT = 27017
-const DEFAULT_PATTERN_DIRECTORY_ENTITY = ['dist/src/**']
-const DEFAULT_PATTERN_DIRECTORY_MIGRATION = ['dist/vendor/typeorm/migrations']
-const DEFAULT_PATTERN_FILE_ENTITY = 'entities.js'
-const DEFAULT_PATTERN_FILE_MIGRATION = '*.js'
+const DEFAULT_CONNECTION = 'mongodb'
+const DEFAULT_HOST = 'localhost'
+const DEFAULT_PORT = 27017
+const DEFAULT_ENTITIES = ['dist/src/**/entities.js']
 
 export const typeORMConfig: TypeORMConfig = {
-  type: TYPEORM_TYPE ?? DEFAULT_TYPE,
+  type: TYPEORM_CONNECTION ?? DEFAULT_CONNECTION,
 
   endpoint: {
-    host: TYPEORM_ENDPOINT_HOST ?? DEFAULT_ENDPOINT_HOST,
-    port: Number.parseInt(TYPEORM_ENDPOINT_PORT, 10) ?? DEFAULT_ENDPOINT_PORT,
-    database: TYPEORM_ENDPOINT_DATABASE,
+    host: TYPEORM_HOST ?? DEFAULT_HOST,
+    port: Number.parseInt(TYPEORM_PORT, 10) ?? DEFAULT_PORT,
+    database: TYPEORM_DATABASE,
   },
 
   authentication: {
-    user: TYPEORM_AUTHENTICATION_USER,
-    password: TYPEORM_AUTHENTICATION_PASSWORD,
+    user: TYPEORM_USERNAME,
+    password: TYPEORM_PASSWORD,
   },
 
   pattern: {
-    directory: {
-      entity: TYPEORM_PATTERN_DIRECTORY_ENTITY?.split(',') ?? DEFAULT_PATTERN_DIRECTORY_ENTITY,
-      migration:
-        TYPEORM_PATTERN_DIRECTORY_MIGRATION?.split(',') ?? DEFAULT_PATTERN_DIRECTORY_MIGRATION,
-    },
-
     file: {
-      entity: TYPEORM_PATTERN_FILE_ENTITY ?? DEFAULT_PATTERN_FILE_ENTITY,
-      migration: TYPEORM_PATTERN_FILE_MIGRATION ?? DEFAULT_PATTERN_FILE_MIGRATION,
+      entities: TYPEORM_ENTITIES?.split(',') ?? DEFAULT_ENTITIES,
     },
   },
 
   logging: {
-    enabled: TYPEORM_LOGGING_ENABLED.toUpperCase() === 'TRUE',
+    enabled: TYPEORM_LOGGING.toUpperCase() === 'TRUE',
   },
 }
 

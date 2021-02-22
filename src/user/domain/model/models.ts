@@ -24,6 +24,6 @@ export class UserModel extends ModelAggregateRoot implements UserModelInterface 
     })
 
     const event = this.eventProvider.buildEvent<NewUserDTO>(CREATED_USER, newUser, this.command)
-    this.dispatchEvent(event)
+    this.apply(event)
   }
 }
