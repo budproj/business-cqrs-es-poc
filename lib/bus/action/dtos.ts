@@ -1,7 +1,9 @@
-export interface Action {
+export interface ActionInterface {
   payload: any
   metadata: ActionMetadata
-  tracing: ActionTracing
+  tracing?: ActionTracing
+
+  setTracing: (tracing: ActionTracing) => void
 }
 
 export interface ActionMetadata {
@@ -12,4 +14,14 @@ export interface ActionMetadata {
 export interface ActionTracing {
   correlationID: string
   stack: Action[]
+}
+
+export abstract class Action implements ActionInterface {
+  public payload: any
+  public metadata: ActionMetadata
+  public tracing?: ActionTracing
+
+  public setTracing(tracing: ActionTracing) {
+    this.tracing = tracing
+  }
 }

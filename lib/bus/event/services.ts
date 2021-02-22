@@ -18,7 +18,9 @@ export abstract class EventProvider extends ActionService implements EventProvid
   public buildEvent<P = any>(eventName: string, payload: P, command?: CommandDTO): EventDTO<P> {
     const EventDTO = this.events[eventName]
     const tracing = this.buildTrace<CommandDTO>(command)
-    const event = new EventDTO(payload, tracing)
+    const event = new EventDTO(payload)
+
+    event.setTracing(tracing)
 
     return event
   }

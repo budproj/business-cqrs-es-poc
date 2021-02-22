@@ -24,7 +24,9 @@ export abstract class CommandDispatcher
   public async dispatch<P = any>(commandName: string, payload: P) {
     const CommandDTO = this.commands[commandName]
     const tracing = this.buildTrace()
-    const command = new CommandDTO(payload, tracing)
+    const command = new CommandDTO(payload)
+
+    command.setTracing(tracing)
 
     await this.commandBus.execute(command)
   }

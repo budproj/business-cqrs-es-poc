@@ -13,21 +13,11 @@ export class UserProjectionHandler implements IEventHandler<CreatedUserEventDTO>
       event,
       message: `New ${CREATED_USER} event received`,
     })
+
+    console.log(event)
   }
 }
 
-@EventsHandler(CreatedUserEventDTO)
-export class UserProjectionSecondHandler implements IEventHandler<CreatedUserEventDTO> {
-  private readonly logger = new Logger(UserProjectionSecondHandler.name)
-
-  public handle(event: CreatedUserEventDTO) {
-    this.logger.log({
-      event,
-      message: `New ${CREATED_USER} event received`,
-    })
-  }
-}
-
-const UserDomainProjectionHandlers = [UserProjectionHandler, UserProjectionSecondHandler]
+const UserDomainProjectionHandlers = [UserProjectionHandler]
 
 export default UserDomainProjectionHandlers

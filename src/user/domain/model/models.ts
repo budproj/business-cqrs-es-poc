@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common'
 
-import { AggregateRoot } from 'lib/models/aggregate-root'
+import { ModelAggregateRoot } from 'lib/models/aggregate-root'
 import { CREATED_USER } from 'src/user/domain/event/constants'
 import { UserDomainEventProvider } from 'src/user/domain/event/services'
 
@@ -10,7 +10,7 @@ interface UserModelInterface {
   create: (data: UserDTO) => void
 }
 
-export class UserModel extends AggregateRoot implements UserModelInterface {
+export class UserModel extends ModelAggregateRoot implements UserModelInterface {
   protected readonly logger = new Logger(UserModel.name)
 
   constructor(protected readonly eventProvider: UserDomainEventProvider) {
@@ -23,7 +23,7 @@ export class UserModel extends AggregateRoot implements UserModelInterface {
       message: `New create user request received`,
     })
 
-    const event = this.eventProvider.buildEvent<UserDTO>(CREATED_USER, user)
+    const event = this.eventProvider.buildEvent<UserDTO>(CREATED_USER, user, this.command)
     this.dispatchEvent(event)
   }
 }

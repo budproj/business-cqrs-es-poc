@@ -1,16 +1,23 @@
 import { Logger } from '@nestjs/common'
-import { AggregateRoot as NestAggregateRoot } from '@nestjs/cqrs'
+import { AggregateRoot } from '@nestjs/cqrs'
 
+import { CommandDTO } from 'lib/bus/command/dtos'
 import { EventDTO } from 'lib/bus/event/dtos'
 import { EventProvider } from 'lib/bus/event/services'
 
-interface AggregateRootInterface {
+interface ModelAggregateRootInterface {
+  setCommand: (command: CommandDTO) => void
   dispatchEvent: (event: EventDTO) => void
 }
 
-export abstract class AggregateRoot extends NestAggregateRoot implements AggregateRootInterface {
+export type ModelAggregateRootConstructor = new (...arguments_: any[]) => ModelAggregateRoot
+
+export abstract class ModelAggregateRoot
+  extends AggregateRoot
+  implements ModelAggregateRootInterface {
   protected readonly eventProvider: EventProvider
   protected readonly logger: Logger
+  protected command: CommandDTO
 
   public dispatchEvent(event: EventDTO) {
     this.logger.log({
@@ -19,5 +26,9 @@ export abstract class AggregateRoot extends NestAggregateRoot implements Aggrega
     })
 
     this.apply(event)
+  }
+
+  public setCommand(command: CommandDTO) {
+    this.command = command
   }
 }

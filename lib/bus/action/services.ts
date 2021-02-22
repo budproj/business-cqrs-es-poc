@@ -1,3 +1,4 @@
+import { remove } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Action } from './dtos'
@@ -7,7 +8,7 @@ export abstract class ActionService {
     const correlationID = previousAction?.tracing.correlationID ?? uuidv4()
     const previousActionStack = previousAction?.tracing.stack ?? []
 
-    const stack = [previousAction, ...previousActionStack]
+    const stack = remove([previousAction, ...previousActionStack])
 
     return {
       correlationID,

@@ -1,8 +1,7 @@
 import { Logger } from '@nestjs/common'
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 
-import { UserDomainEventProvider } from 'src/user/domain/event/services'
-import { UserModel } from 'src/user/domain/model/models'
+import { UserDomainService } from 'src/user/domain/services'
 
 import { CREATE_USER } from './constants'
 import { CreateUserCommandDTO } from './dtos'
@@ -11,10 +10,7 @@ import { CreateUserCommandDTO } from './dtos'
 export class CreateUserCommandHandler implements ICommandHandler<CreateUserCommandDTO> {
   private readonly logger = new Logger(CreateUserCommandHandler.name)
 
-  constructor(
-    protected readonly eventPublisher: EventPublisher,
-    private readonly eventProvider: UserDomainEventProvider,
-  ) {}
+  constructor(private readonly userDomainService: UserDomainService) {}
 
   public async execute(command: CreateUserCommandDTO) {
     this.logger.log({
@@ -22,7 +18,7 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
       message: `New ${CREATE_USER} command received`,
     })
 
-    const user = this.eventPublisher.mergeObjectContext(new UserModel(this.eventProvider))
+    const user = this.userDomainService.buildUserModel(command)
 
     user.create(command.payload)
     user.commit()
