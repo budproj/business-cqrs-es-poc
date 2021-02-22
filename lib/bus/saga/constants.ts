@@ -1,0 +1,1 @@
+export const DEFAULT_SAGA_DELAY = 1000
