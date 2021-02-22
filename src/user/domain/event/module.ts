@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common'
 
-import UserDomainEventHandlers from './handlers'
 import { UserDomainEventProvider } from './services'
 
 @Module({
-  providers: [UserDomainEventProvider, ...UserDomainEventHandlers],
+  providers: [UserDomainEventProvider],
   exports: [UserDomainEventProvider],
 })
 class UserDomainEventModule {}

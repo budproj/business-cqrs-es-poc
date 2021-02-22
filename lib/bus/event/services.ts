@@ -1,3 +1,6 @@
+import { ActionService } from 'lib/bus/action/services'
+import { CommandDTO } from 'lib/bus/command/dtos'
+
 import { EventDTO } from './dtos'
 
 export interface EventProviderInterface {
@@ -7,12 +10,15 @@ export interface EventProviderInterface {
 export type EventHashmap = Record<string, EventDTOConstructor>
 type EventDTOConstructor = new (...arguments_: any[]) => EventDTO
 
-export abstract class EventProvider implements EventProviderInterface {
-  constructor(protected readonly events: EventHashmap) {}
+export abstract class EventProvider extends ActionService implements EventProviderInterface {
+  constructor(protected readonly events: EventHashmap) {
+    super()
+  }
 
-  public buildEvent<P = any>(eventName: string, payload: P): EventDTO<P> {
+  public buildEvent<P = any>(eventName: string, payload: P, command?: CommandDTO): EventDTO<P> {
     const EventDTO = this.events[eventName]
-    const event = new EventDTO(payload)
+    const tracing = this.buildTrace<CommandDTO>(command)
+    const event = new EventDTO(payload, tracing)
 
     return event
   }

@@ -7,7 +7,7 @@ import { CreatedUserEventDTO } from './dtos'
 
 @Injectable()
 export class UserDomainEventProvider extends EventProvider {
-  public readonly commands: EventHashmap
+  public readonly events: EventHashmap
 
   constructor() {
     super({
