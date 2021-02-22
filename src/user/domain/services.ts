@@ -3,8 +3,8 @@ import { EventPublisher } from '@nestjs/cqrs'
 
 import { CommandDTO } from 'lib/bus/command/dtos'
 import { DomainService } from 'lib/domain/service'
-import { UserDomainEventProvider } from 'src/user/domain/event/services'
 
+import { UserDomainEventProvider } from './event/services'
 import { UserModel } from './model/models'
 
 interface UserDomainServiceInterface {

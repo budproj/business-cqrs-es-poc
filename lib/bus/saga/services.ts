@@ -6,7 +6,8 @@ import { delay, map } from 'rxjs/operators'
 
 import { CommandDTO } from 'lib/bus/command/dtos'
 import { CommandDTOConstructor } from 'lib/bus/command/services'
-import { DEFAULT_SAGA_DELAY } from 'lib/bus/saga/constants'
+
+import { DEFAULT_SAGA_DELAY } from './constants'
 
 interface SagaProviderInterface {
   react: (
