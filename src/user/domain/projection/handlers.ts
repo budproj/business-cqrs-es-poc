@@ -1,16 +1,21 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs'
+import { InjectRepository } from '@nestjs/typeorm'
+import { MongoRepository } from 'typeorm'
 
 import { CREATED_USER } from 'src/user/domain/event/constants'
 import { CreatedUserEventDTO } from 'src/user/domain/event/dtos'
-import { NewUserProjectionRepository } from 'src/user/domain/projection/repositories'
+import { UserRegistrationEntity } from 'src/user/infrastructure/entities'
 
 @EventsHandler(CreatedUserEventDTO)
 @Injectable()
-export class UserProjectionHandler implements IEventHandler<CreatedUserEventDTO> {
-  private readonly logger = new Logger(UserProjectionHandler.name)
+export class UserRegistrationProjectionHandler implements IEventHandler<CreatedUserEventDTO> {
+  private readonly logger = new Logger(UserRegistrationProjectionHandler.name)
 
-  constructor(private readonly repository: NewUserProjectionRepository) {}
+  constructor(
+    @InjectRepository(UserRegistrationEntity)
+    private readonly repository: MongoRepository<UserRegistrationEntity>,
+  ) {}
 
   public async handle(event: CreatedUserEventDTO) {
     this.logger.log({
@@ -23,6 +28,6 @@ export class UserProjectionHandler implements IEventHandler<CreatedUserEventDTO>
   }
 }
 
-const UserDomainProjectionHandlers = [UserProjectionHandler]
+const UserDomainProjectionHandlers = [UserRegistrationProjectionHandler]
 
 export default UserDomainProjectionHandlers

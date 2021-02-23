@@ -1,11 +1,14 @@
-import { Entity as TypeORMEntity, Column } from 'typeorm'
+import { Entity as TypeORMEntity, Column, ObjectIdColumn, ObjectID } from 'typeorm'
 
 import { Entity } from 'lib/orm/entity'
 
-import { USER_NEW_ENTITY } from './constants'
+import { USER_REGISTRATION } from './constants'
 
-@TypeORMEntity(USER_NEW_ENTITY)
-export class NewUserEntity extends Entity {
+@TypeORMEntity(USER_REGISTRATION)
+export class UserRegistrationEntity extends Entity {
+  @ObjectIdColumn()
+  public readonly userID: ObjectID
+
   @Column()
   public readonly firstName: string
 

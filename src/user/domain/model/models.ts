@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common'
+import { v4 as uuidv4 } from 'uuid'
 
 import { ModelAggregateRoot } from 'lib/models/aggregate-root'
 import { CREATED_USER } from 'src/user/domain/event/constants'
@@ -18,12 +19,18 @@ export class UserModel extends ModelAggregateRoot implements UserModelInterface 
   }
 
   public create(newUser: NewUserCommandPayload) {
+    const user = {
+      ...newUser,
+      userID: uuidv4(),
+    }
+
     this.logger.log({
       newUser,
+      user,
       message: `New create user request received`,
     })
 
-    const event = this.eventProvider.buildEvent<NewUserDTO>(CREATED_USER, newUser, this.command)
+    const event = this.eventProvider.buildEvent<NewUserDTO>(CREATED_USER, user, this.command)
     this.apply(event)
   }
 }

@@ -1,1 +1,1 @@
-export const USER_NEW_ENTITY = 'user_new'
+export const USER_REGISTRATION = 'user_registration'
