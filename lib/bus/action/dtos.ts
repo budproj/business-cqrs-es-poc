@@ -2,9 +2,9 @@ import { remove } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface ActionInterface {
-  payload: any
   metadata: ActionMetadata
   tracing: ActionTracing
+  payload?: any
 }
 
 export interface ActionMetadata {
@@ -24,9 +24,9 @@ export interface ActionParameters {
 }
 
 export abstract class Action implements ActionInterface {
-  public payload: any
   public metadata: ActionMetadata
   public tracing: ActionTracing
+  public payload?: any
 
   constructor({ name, previousAction }: ActionParameters) {
     const metadata = this.buildMetadata(name)

@@ -1,22 +1,23 @@
 import { Logger } from '@nestjs/common'
 import { AggregateRoot, IEvent } from '@nestjs/cqrs'
 
-import { CommandDTO } from 'lib/bus/command/dtos'
 import { EventProvider } from 'lib/bus/event/services'
 
-interface ModelAggregateRootInterface {
-  setCommand: (command: CommandDTO) => void
+interface OperationWriteModelInterface {
   apply: (event: IEvent) => void
 }
 
-export type ModelAggregateRootConstructor = new (...arguments_: any[]) => ModelAggregateRoot
+export type OperationWriteModelConstructor = new <
+  M extends OperationWriteModel = OperationWriteModel
+>(
+  ...arguments_: any[]
+) => M
 
-export abstract class ModelAggregateRoot
+export abstract class OperationWriteModel
   extends AggregateRoot
-  implements ModelAggregateRootInterface {
+  implements OperationWriteModelInterface {
   protected readonly eventProvider: EventProvider
   protected readonly logger: Logger
-  protected command: CommandDTO
 
   public apply(event: IEvent) {
     this.logger.log({
@@ -25,9 +26,5 @@ export abstract class ModelAggregateRoot
     })
 
     super.apply(event)
-  }
-
-  public setCommand(command: CommandDTO) {
-    this.command = command
   }
 }

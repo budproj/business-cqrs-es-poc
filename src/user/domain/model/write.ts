@@ -1,7 +1,8 @@
 import { Logger } from '@nestjs/common'
 import { v4 as uuidv4 } from 'uuid'
 
-import { ModelAggregateRoot } from 'lib/models/aggregate-root'
+import { CommandDTO } from 'lib/bus/command/dtos'
+import { OperationWriteModel } from 'lib/operation/write/models'
 import { CREATED_USER } from 'src/user/domain/event/constants'
 import { UserDomainEventProvider } from 'src/user/domain/event/services'
 
@@ -11,10 +12,13 @@ interface UserModelInterface {
   create: (newUser: NewUserDTO) => void
 }
 
-export class UserModel extends ModelAggregateRoot implements UserModelInterface {
-  protected readonly logger = new Logger(UserModel.name)
+export class UserWriteModel extends OperationWriteModel implements UserModelInterface {
+  protected readonly logger = new Logger(UserWriteModel.name)
 
-  constructor(protected readonly eventProvider: UserDomainEventProvider) {
+  constructor(
+    protected readonly command: CommandDTO,
+    protected readonly eventProvider: UserDomainEventProvider,
+  ) {
     super()
   }
 

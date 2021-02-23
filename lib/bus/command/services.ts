@@ -19,7 +19,7 @@ export abstract class CommandDispatcher implements CommandDispatcherInterface {
     protected readonly commandBus: CommandBus,
   ) {}
 
-  public async dispatch<P = any>(commandName: string, payload: P): Promise<CommandDTO<P>> {
+  public async dispatch<P = any>(commandName: string, payload?: P): Promise<CommandDTO<P>> {
     const CommandDTO = this.commands[commandName]
     const command = new CommandDTO(payload)
 

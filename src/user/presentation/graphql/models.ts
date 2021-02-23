@@ -1,6 +1,6 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 
-import { EntityObject, MutationResult } from 'lib/models/graphql'
+import { EntityObject, MutationResult } from 'lib/graphql/models'
 
 @ObjectType('User', {
   implements: () => EntityObject,

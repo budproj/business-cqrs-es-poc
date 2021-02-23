@@ -1,29 +1,39 @@
 import { Injectable } from '@nestjs/common'
-import { EventPublisher } from '@nestjs/cqrs'
 
-import { CommandDTO } from 'lib/bus/command/dtos'
-import { DomainService } from 'lib/domain/service'
+import { CreateUserCommandDTO } from 'src/user/application/command/dtos'
+import { ReadAllRegistrationQueryDTO } from 'src/user/application/query/dtos'
+import { UserRegistrationEntity } from 'src/user/infrastructure/entities'
 
-import { UserDomainEventProvider } from './event/services'
-import { UserModel } from './model/models'
+import { UserReadServiceProvider, UserWriteModelService } from './model/services'
+import { UserWriteModel } from './model/write'
 
 interface UserDomainServiceInterface {
-  buildUserModel: (command: CommandDTO) => UserModel
+  createUser: (command: CreateUserCommandDTO) => UserWriteModel
+  getAllUsersRegistration: (query: ReadAllRegistrationQueryDTO) => Promise<UserRegistrationEntity[]>
 }
 
 @Injectable()
-export class UserDomainService extends DomainService implements UserDomainServiceInterface {
+export class UserDomainService implements UserDomainServiceInterface {
   constructor(
-    protected readonly eventPublisher: EventPublisher,
-    private readonly eventProvider: UserDomainEventProvider,
-  ) {
-    super(eventPublisher)
+    private readonly writeModelService: UserWriteModelService,
+    private readonly readModelServiceProvider: UserReadServiceProvider,
+  ) {}
+
+  public createUser(command: CreateUserCommandDTO) {
+    const user = this.writeModelService.buildWriteModel(command)
+
+    user.create(command.payload)
+    user.commit()
+
+    return user
   }
 
-  public buildUserModel(command: CommandDTO) {
-    const instance = new UserModel(this.eventProvider)
-    const model = this.prepareEventModel<UserModel>(instance, command)
+  public async getAllUsersRegistration(query: ReadAllRegistrationQueryDTO) {
+    const service = this.readModelServiceProvider.userRegistration
+    const model = service.buildReadModel(query)
 
-    return model
+    const users = await model.getAll()
+
+    return users
   }
 }

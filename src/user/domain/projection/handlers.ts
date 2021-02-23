@@ -7,8 +7,8 @@ import { CREATED_USER } from 'src/user/domain/event/constants'
 import { CreatedUserEventDTO } from 'src/user/domain/event/dtos'
 import { UserRegistrationEntity } from 'src/user/infrastructure/entities'
 
-@EventsHandler(CreatedUserEventDTO)
 @Injectable()
+@EventsHandler(CreatedUserEventDTO)
 export class UserRegistrationProjectionHandler implements IEventHandler<CreatedUserEventDTO> {
   private readonly logger = new Logger(UserRegistrationProjectionHandler.name)
 

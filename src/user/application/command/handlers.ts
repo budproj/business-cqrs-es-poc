@@ -10,7 +10,7 @@ import { CreateUserCommandDTO } from './dtos'
 export class CreateUserCommandHandler implements ICommandHandler<CreateUserCommandDTO> {
   private readonly logger = new Logger(CreateUserCommandHandler.name)
 
-  constructor(private readonly userDomainService: UserDomainService) {}
+  constructor(private readonly userDomain: UserDomainService) {}
 
   public async execute(command: CreateUserCommandDTO) {
     this.logger.log({
@@ -18,10 +18,9 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
       message: `New ${CREATE_USER} command received`,
     })
 
-    const user = this.userDomainService.buildUserModel(command)
+    const user = this.userDomain.createUser(command)
 
-    user.create(command.payload)
-    user.commit()
+    return user
   }
 }
 
