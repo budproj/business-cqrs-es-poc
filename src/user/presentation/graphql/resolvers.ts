@@ -12,8 +12,8 @@ export class UserPresentationGraphQLResolvers {
   constructor(private readonly applicationService: UserApplicationService) {}
 
   @Query(() => [UserObject], { name: 'users' })
-  protected async getAllUsers() {
-    this.logger.log('Fetching all users')
+  protected async getAllUsersRegistration() {
+    this.logger.log('Fetching all users registration')
 
     const result = await this.applicationService.getAllUsersRegistration()
 

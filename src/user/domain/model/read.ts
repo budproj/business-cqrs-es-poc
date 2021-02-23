@@ -24,7 +24,7 @@ export class UserRegistrationReadModel extends OperationReadModel implements Use
   public async getAll() {
     this.logger.log({
       query: this.query,
-      message: 'Getting all user registration data',
+      message: 'Getting all users registration data',
     })
     const users = await this.repository.find()
 
