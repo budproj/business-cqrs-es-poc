@@ -1,10 +1,10 @@
 <p align="center">
   <br>
-   <img src="https://media.giphy.com/media/t2eBr71ACeDC0/giphy.gif" alt="Michael Scott (from The Office) trying to do parkour at his office" title="Core header's GIF" />
+   <img src="https://media.giphy.com/media/t2eBr71ACeDC0/giphy.gif" alt="Michael Scott (from The Office) trying to do parkour at his office" title="Execution Backend header's GIF" />
   <br>
 </p>
 <p align="center">
-Primary business logic regarding our core components
+Domain and core backend logic regarding our execution mode components
 </p>
 
 ## 📖 About this

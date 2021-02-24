@@ -1,6 +1,6 @@
-# Contributing to our Core Repository
+# Contributing to our Execution Backend Repository
 
-On this file, you'll learn how to contribute to our Core repository. Please, read all the following content before submitting any pull request. It is important to have a common language, usage, and pattern between all the the code we develop for this repository.
+On this file, you'll learn how to contribute to our Execution Backend repository. Please, read all the following content before submitting any pull request. It is important to have a common language, usage, and pattern between all the the code we develop for this repository.
 
 On this document you will find the following topics:
 

@@ -1,7 +1,7 @@
 {
-  "name": "core",
+  "name": "execution-backend",
   "version": "0.0.0",
-  "description": "Primary business logic regarding our core components",
+  "description": "Domain and core backend logic regarding our execution mode components",
   "main": "main.ts",
   "scripts": {
     "start:dev": "run-s docker:up start:watch",
