@@ -16,6 +16,7 @@
     "paths": {
       "@modules/*": ["src/modules/*"],
       "@infrastructure/*": ["src/infrastructure/*"],
+      "@config": ["config/index"],
       "@config/*": ["config/*"],
       "@lib/*": ["lib/*"]
     }
