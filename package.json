@@ -2,7 +2,7 @@
   "name": "execution-backend",
   "version": "0.0.0",
   "description": "Domain and core backend logic regarding our execution mode components",
-  "main": "main.ts",
+  "main": "src/main.ts",
   "scripts": {
     "start:dev": "run-s docker:up start:watch",
     "start:watch": "nest start --watch",

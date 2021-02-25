@@ -31,6 +31,7 @@ const {
 const DEFAULT_DEBUG_ENABLED = false
 const DEFAULT_PLAYGROUND_ENABLED = false
 const DEFAULT_INSTROSPECTION_ENABLED = false
+const DEFAULT_SCHEMA_FILEPATH = './dist/src/infrastructure/graphql/schema.gql'
 
 export const graphQLConfig: GraphQLConfig = {
   debug: {
@@ -47,7 +48,7 @@ export const graphQLConfig: GraphQLConfig = {
   },
 
   schema: {
-    filePath: GRAPHQL_SCHEMA_FILE_PATH,
+    filePath: GRAPHQL_SCHEMA_FILE_PATH ?? DEFAULT_SCHEMA_FILEPATH,
   },
 }
 

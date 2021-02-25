@@ -9,9 +9,13 @@ const { LOGGING_LEVEL, LOGGING_SERVICE_NAME } = process.env
 
 const DEFAULT_LOGGING_LEVEL = LOG_LEVEL.ERROR
 const DEFAULT_LOGGING_SERVICE_NAME = 'business@unknown'
+const uppercasedLoggingLevel = LOGGING_LEVEL?.toUpperCase()
 
 export const loggingConfig: LoggingConfig = {
-  level: LOG_LEVEL[LOGGING_LEVEL?.toUpperCase()] ?? DEFAULT_LOGGING_LEVEL,
+  level:
+    uppercasedLoggingLevel && uppercasedLoggingLevel in LOG_LEVEL
+      ? (<any>LOG_LEVEL)[uppercasedLoggingLevel]
+      : DEFAULT_LOGGING_LEVEL,
   serviceName: LOGGING_SERVICE_NAME ?? DEFAULT_LOGGING_SERVICE_NAME,
 }
 

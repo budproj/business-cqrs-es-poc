@@ -12,8 +12,8 @@ interface ServerHttpsConfig {
 }
 
 interface ServerHttpsCredentialFilePaths {
-  key?: string
-  cert?: string
+  key: string
+  cert: string
 }
 
 interface ServerCORSConfig {
@@ -36,18 +36,20 @@ const DEFAULT_PORT = 3000
 const DEFAULT_NETWORK_ADDRESS = '0.0.0.0'
 const DEFAULT_HTTPS_ENABLED = false
 const DEFAULT_CORS_CREDENTIALS_FLAG = true
-const DEFAULT_CORS_ALLOWED_ORIGINS = []
+const DEFAULT_CORS_ALLOWED_ORIGINS = ['http://app.local.getbud.co:3000']
+const DEFAULT_HTTPS_KEY_FILE_PATH = 'localhost.key'
+const DEFAULT_HTTPS_CERT_FILE_PATH = 'localhost.cert'
 
 export const serverConfig: ServerConfig = {
-  port: Number.parseInt(SERVER_PORT, 10) ?? DEFAULT_PORT,
+  port: SERVER_PORT ? Number.parseInt(SERVER_PORT, 10) : DEFAULT_PORT,
   prefix: SERVER_PREFIX,
   networkAddress: SERVER_NETWORK_ADDRESS ?? DEFAULT_NETWORK_ADDRESS,
 
   https: {
     enabled: SERVER_HTTPS_ENABLED?.toUpperCase() === 'TRUE' ?? DEFAULT_HTTPS_ENABLED,
     credentialFilePaths: {
-      key: SERVER_HTTPS_KEY_FILE_PATH,
-      cert: SERVER_HTTPS_CERT_FILE_PATH,
+      key: SERVER_HTTPS_KEY_FILE_PATH ?? DEFAULT_HTTPS_KEY_FILE_PATH,
+      cert: SERVER_HTTPS_CERT_FILE_PATH ?? DEFAULT_HTTPS_CERT_FILE_PATH,
     },
   },
 

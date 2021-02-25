@@ -13,8 +13,8 @@ interface TypeORMEndpointConfig {
 }
 
 interface TypeORMAuthenticationConfig {
-  user: string
-  password: string
+  user?: string
+  password?: string
 }
 
 interface TypeORMPatternConfig {
@@ -41,6 +41,7 @@ const {
 } = process.env
 
 const DEFAULT_CONNECTION = 'mongodb'
+const DEFAULT_DATABASE = 'execution_projections'
 const DEFAULT_HOST = 'localhost'
 const DEFAULT_PORT = 27017
 const DEFAULT_ENTITIES = ['dist/src/**/entities.js']
@@ -50,8 +51,8 @@ export const typeORMConfig: TypeORMConfig = {
 
   endpoint: {
     host: TYPEORM_HOST ?? DEFAULT_HOST,
-    port: Number.parseInt(TYPEORM_PORT, 10) ?? DEFAULT_PORT,
-    database: TYPEORM_DATABASE,
+    port: TYPEORM_PORT ? Number.parseInt(TYPEORM_PORT, 10) : DEFAULT_PORT,
+    database: TYPEORM_DATABASE ?? DEFAULT_DATABASE,
   },
 
   authentication: {
@@ -66,7 +67,7 @@ export const typeORMConfig: TypeORMConfig = {
   },
 
   logging: {
-    enabled: TYPEORM_LOGGING.toUpperCase() === 'TRUE',
+    enabled: TYPEORM_LOGGING?.toUpperCase() === 'TRUE',
   },
 }
 

@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common'
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql'
 
-import UserModule from 'src/user/module'
-
-import graphQLFactory from './factory'
+import graphQLFactory from './config.factory'
 
 @Module({
-  imports: [NestGraphQLModule.forRootAsync(graphQLFactory), UserModule],
+  imports: [NestGraphQLModule.forRootAsync(graphQLFactory)],
 })
 class GraphQLModule {}
 
