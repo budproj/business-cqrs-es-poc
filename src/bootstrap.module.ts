@@ -1,6 +1,7 @@
-import createConfig from '@config'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+
+import createConfig from '@config'
 
 import InfrastructureModule from './infrastructure/infrastructure.module'
 import InterfaceModule from './interface/interface.module'

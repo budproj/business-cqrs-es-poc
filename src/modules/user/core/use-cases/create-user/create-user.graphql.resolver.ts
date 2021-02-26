@@ -1,6 +1,8 @@
-import { MutationResult } from '@interface/adapters/graphql.dto'
 import { Logger } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
+
+import { MutationResult } from '@interface/adapters/graphql.dto'
+import { CreateUserRequest } from '@modules/user/core/use-cases/create-user/create-user.request.dto'
 
 import { CreateUserCommand } from './create-user.command'
 import { CreateUserInput } from './create-user.graphql.dto'
@@ -19,8 +21,9 @@ class CreateUserGraphQLResolver {
       message: 'Creating a new user',
     })
 
-    const command = new CreateUserCommand({ payload: user })
-    console.log(command)
+    const request = new CreateUserRequest(user)
+    const command = new CreateUserCommand({ payload: request })
+    console.log(command.payload?.firstName.value)
 
     return {}
   }

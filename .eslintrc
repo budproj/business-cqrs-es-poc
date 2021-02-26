@@ -1,18 +1,22 @@
 {
   "root": true,
+  "extends": ["@budproj/eslint-config-base-ts", "@budproj/eslint-config-prettier-ts"],
+  "plugins": ["import"],
   "parserOptions": {
     "project": "tsconfig.build.json"
   },
-  "extends": ["@budproj/eslint-config-base-ts", "@budproj/eslint-config-prettier-ts"],
   "rules": {
     "new-cap": "off",
-    "max-params": "off"
+    "max-params": "off",
+    "import/no-unresolved": "error"
   },
   "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["./", "src"]
-      }
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "typescript": {
+      "alwaysTryTypes": true,
+      "project": "./tsconfig.json"
     }
   }
 }

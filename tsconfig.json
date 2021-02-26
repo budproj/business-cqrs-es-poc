@@ -17,6 +17,7 @@
       "@modules/*": ["src/modules/*"],
       "@interface/*": ["src/interface/*"],
       "@infrastructure/*": ["src/infrastructure/*"],
+      "@core/*": ["src/core/*"],
       "@config": ["config/index"],
       "@config/*": ["config/*"],
       "@lib/*": ["lib/*"]

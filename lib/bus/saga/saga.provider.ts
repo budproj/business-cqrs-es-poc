@@ -1,9 +1,10 @@
-import Action, { ActionConstructor } from '@lib/bus/action/action.dto'
 import { Type } from '@nestjs/common'
 import { IEvent, ofType } from '@nestjs/cqrs'
 import deepmerge from 'deepmerge'
 import { Observable } from 'rxjs'
 import { delay, map } from 'rxjs/operators'
+
+import Action, { ActionConstructor } from '@lib/bus/action/action'
 
 import { DEFAULT_SAGA_DELAY } from './constants'
 

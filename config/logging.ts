@@ -14,7 +14,7 @@ const uppercasedLoggingLevel = LOGGING_LEVEL?.toUpperCase()
 export const loggingConfig: LoggingConfig = {
   level:
     uppercasedLoggingLevel && uppercasedLoggingLevel in LOG_LEVEL
-      ? (<any>LOG_LEVEL)[uppercasedLoggingLevel]
+      ? (LOG_LEVEL as any)[uppercasedLoggingLevel]
       : DEFAULT_LOGGING_LEVEL,
   serviceName: LOGGING_SERVICE_NAME ?? DEFAULT_LOGGING_SERVICE_NAME,
 }

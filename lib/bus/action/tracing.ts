@@ -1,7 +1,7 @@
 import { without } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
-import Action from './action.dto'
+import Action from './action'
 
 interface ActionTracingInterface {
   correlationID: string

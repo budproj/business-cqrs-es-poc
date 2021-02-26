@@ -1,5 +1,5 @@
-import ActionMetadata from './metadata.dto'
-import ActionTracing from './tracing.dto'
+import ActionMetadata from './metadata'
+import ActionTracing from './tracing'
 
 export interface ActionInterface<P> {
   metadata: ActionMetadata

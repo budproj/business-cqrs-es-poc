@@ -13,7 +13,8 @@
     "lint:staged": "lint-staged",
     "format": "prettier --write 'src/**/*.ts'",
     "compile": "tsc",
-    "docker:up": "docker-compose up -d"
+    "docker:up": "docker-compose up -d",
+    "postinstall": "husky install"
   },
   "author": "delucca <delucca@pm.me>",
   "homepage": "https://github.com/budproj/core#readme",
@@ -69,8 +70,9 @@
     "@types/rimraf": "^3",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
-    "@typescript-eslint/parser": "^4.7.0",
+    "@typescript-eslint/parser": "^4.15.2",
     "eslint": "^7.13.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-unicorn": "^28.0.2",

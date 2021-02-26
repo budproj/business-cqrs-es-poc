@@ -1,5 +1,6 @@
-import Action, { ActionConstructor } from '@lib/bus/action/action.dto'
 import { QueryBus } from '@nestjs/cqrs'
+
+import Action, { ActionConstructor } from '@lib/bus/action/action'
 
 export interface QueryProviderInterface {
   dispatch: <R = any, P = any>(queryName: string, payload: P, correlationID?: string) => Promise<R>

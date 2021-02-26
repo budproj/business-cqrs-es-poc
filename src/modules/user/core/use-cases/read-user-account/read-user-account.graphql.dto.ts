@@ -1,5 +1,6 @@
-import { EntityObject } from '@interface/adapters/graphql.dto'
 import { Field, ObjectType } from '@nestjs/graphql'
+
+import { EntityObject } from '@interface/adapters/graphql.dto'
 
 @ObjectType({
   implements: () => EntityObject,

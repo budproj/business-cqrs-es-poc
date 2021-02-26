@@ -1,5 +1,6 @@
-import UserCoreModule from '@modules/user/core/user-core.module'
 import { Module } from '@nestjs/common'
+
+import UserCoreModule from '@modules/user/core/user-core.module'
 
 @Module({
   imports: [UserCoreModule],

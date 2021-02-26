@@ -1,13 +1,14 @@
 import { existsSync, readFileSync } from 'fs'
 
-import createConfig from '@config'
-import { LoggingConfig } from '@config/logging'
-import { ServerConfig } from '@config/server'
-import buildLogger from '@lib/logger'
 import { LoggerService, ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
+
+import createConfig from '@config'
+import { LoggingConfig } from '@config/logging'
+import { ServerConfig } from '@config/server'
+import buildLogger from '@lib/logger'
 
 import BootstrapModule from './bootstrap.module'
 

@@ -1,4 +1,4 @@
-import Action, { ActionConstructor } from '@lib/bus/action/action.dto'
+import Action, { ActionConstructor } from '@lib/bus/action/action'
 
 export interface EventProviderInterface {
   buildEvent: <P = any>(eventName: string, payload: P) => Action
