@@ -15,6 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@modules/*": ["src/modules/*"],
+      "@interface/*": ["src/interface/*"],
       "@infrastructure/*": ["src/infrastructure/*"],
       "@config": ["config/index"],
       "@config/*": ["config/*"],
@@ -22,7 +23,6 @@
     }
   },
   "include": ["src/**/*.ts", "config/**/*.ts", "lib/**/*.ts"],
-  "exclude": ["node_modules"],
   "preferences": {
     "importModuleSpecifierPreference": "non-relative"
   }

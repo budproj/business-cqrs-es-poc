@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
 import createConfig from '@config'
-import GraphQLModule from './infrastructure/graphql/graphql.module'
-import TypeORMModule from './infrastructure/orm/orm.module'
+import InterfaceModule from './interface/interface.module'
+import InfrastructureModule from './infrastructure/infrastructure.module'
 
 @Module({
-  imports: [ConfigModule.forFeature(createConfig), TypeORMModule, GraphQLModule],
+  imports: [ConfigModule.forFeature(createConfig), InterfaceModule, InfrastructureModule],
 })
 class BootstrapModule {}
 
