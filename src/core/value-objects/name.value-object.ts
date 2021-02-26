@@ -1,4 +1,19 @@
+import { ArgumentInvalidException } from '@core/exceptions/argument-invalid.exception'
+import Specification from '@core/specifications/specification'
+
 import ValueObject, { DomainPrimitive } from './value-object'
+
+class HasTwoLettersOrMoreSpecification extends Specification<string> {
+  currentRevision = this.rev20210226CheckNumberOfLetters
+
+  public isSatisfiedBy(value: string) {
+    return this.currentRevision(value)
+  }
+
+  private rev20210226CheckNumberOfLetters(value: string) {
+    return value.length >= 2
+  }
+}
 
 class Name extends ValueObject<string> {
   constructor(value: string) {
@@ -10,7 +25,10 @@ class Name extends ValueObject<string> {
   }
 
   protected validate({ value }: DomainPrimitive<string>) {
-    if (!value) throw new Error('Invalid')
+    const hasTwoLettersOrMore = new HasTwoLettersOrMoreSpecification()
+    const isValid = hasTwoLettersOrMore.isSatisfiedBy(value)
+
+    if (!isValid) throw new ArgumentInvalidException('The name must have two letters or more')
   }
 }
 
