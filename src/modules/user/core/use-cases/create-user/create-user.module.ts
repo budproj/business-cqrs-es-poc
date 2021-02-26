@@ -1,5 +1,6 @@
-import CreateUserGraphQLResolver from './create-user.graphql.resolver'
 import { Module } from '@nestjs/common'
+
+import CreateUserGraphQLResolver from './create-user.graphql.resolver'
 
 @Module({
   providers: [CreateUserGraphQLResolver],

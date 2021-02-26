@@ -1,5 +1,6 @@
-import CreateUserModule from './create-user/create-user.module'
 import { Module } from '@nestjs/common'
+
+import CreateUserModule from './create-user/create-user.module'
 import ReadUserAccountModule from './read-user-account/read-user-account.module'
 
 @Module({

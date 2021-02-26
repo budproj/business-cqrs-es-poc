@@ -1,5 +1,5 @@
-import { CommandBus } from '@nestjs/cqrs'
 import Action, { ActionConstructor } from '@lib/bus/action/action.dto'
+import { CommandBus } from '@nestjs/cqrs'
 
 export interface CommandProviderInterface {
   dispatch: <P = any>(commandName: string, payload: P, correlationID?: string) => Promise<Action<P>>

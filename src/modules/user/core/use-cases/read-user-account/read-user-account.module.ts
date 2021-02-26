@@ -1,5 +1,6 @@
-import ReadUserAccountGraphQLResolver from './read-user-account.graphql.resolver'
 import { Module } from '@nestjs/common'
+
+import ReadUserAccountGraphQLResolver from './read-user-account.graphql.resolver'
 
 @Module({
   providers: [ReadUserAccountGraphQLResolver],

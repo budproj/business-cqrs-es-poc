@@ -1,9 +1,9 @@
+import { MutationResult } from '@interface/adapters/graphql.dto'
 import { Logger } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import { MutationResult } from '@interface/adapters/graphql.dto'
 
-import { CreateUserInput } from './create-user.graphql.dto'
 import { CreateUserCommand } from './create-user.command'
+import { CreateUserInput } from './create-user.graphql.dto'
 
 @Resolver()
 class CreateUserGraphQLResolver {

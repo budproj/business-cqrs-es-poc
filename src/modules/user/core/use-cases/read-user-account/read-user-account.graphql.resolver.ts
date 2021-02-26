@@ -1,6 +1,6 @@
+import { EntityObject } from '@interface/adapters/graphql.dto'
 import { Logger } from '@nestjs/common'
 import { Args, ID, Resolver, Query } from '@nestjs/graphql'
-import { EntityObject } from '@interface/adapters/graphql.dto'
 
 import { UserAccountObject } from './read-user-account.graphql.dto'
 
