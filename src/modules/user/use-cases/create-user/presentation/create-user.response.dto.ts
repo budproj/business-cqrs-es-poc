@@ -1,13 +1,13 @@
-import ID from '@core/value-objects/id.value-object'
+import ID from '@lib/ddd/value-objects/id.value-object'
 
 interface CreateUserResponseProperties {
-  correlationID: string
+  correlationID: ID
 }
 
 export class CreateUserResponse {
   public readonly correlationID: ID
 
   constructor({ correlationID }: CreateUserResponseProperties) {
-    this.correlationID = new ID(correlationID)
+    this.correlationID = correlationID
   }
 }

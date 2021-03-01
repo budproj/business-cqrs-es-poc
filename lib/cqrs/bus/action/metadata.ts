@@ -1,18 +1,26 @@
-import { v4 as uuidv4 } from 'uuid'
+import ID from '@lib/ddd/value-objects/id.value-object'
 
-interface ActionMetadataInterface {
-  id: string
+import ActionName from './action-name.value-object'
+
+export interface ActionMetadataInterface {
+  id: ID
+  name: ActionName
+  timestamp: Date
+}
+
+export interface ActionMetadataProperties {
   name: string
-  timestamp: number
 }
 
 class ActionMetadata implements ActionMetadataInterface {
-  public readonly id: string
-  public readonly timestamp: number
+  public readonly id: ID
+  public readonly name: ActionName
+  public readonly timestamp: Date
 
-  constructor(public readonly name: string) {
-    this.id = uuidv4()
-    this.timestamp = Date.now()
+  constructor({ name }: ActionMetadataProperties) {
+    this.id = ID.generate()
+    this.timestamp = new Date()
+    this.name = new ActionName(name)
   }
 }
 

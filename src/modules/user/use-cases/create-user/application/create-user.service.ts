@@ -14,11 +14,11 @@ class CreateUserService implements CreateUserServiceInterface {
   constructor(protected readonly eventPublisher: EventPublisher) {}
 
   public async createUser(createUserCommand: CreateUserCommand) {
-    const userAggregate = new UserAggregate(createUserCommand)
-    const test = this.eventPublisher.mergeObjectContext(userAggregate)
+    const userAggregateInstance = new UserAggregate(createUserCommand)
+    const userAggregate = this.eventPublisher.mergeObjectContext(userAggregateInstance)
 
-    test.create(createUserCommand.payload)
-    test.commit()
+    userAggregate.create(createUserCommand.payload)
+    userAggregate.commit()
   }
 }
 

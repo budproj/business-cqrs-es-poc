@@ -25,7 +25,6 @@ class UserRegistrationProjectionHandler implements IEventHandler<CreatedUserEven
     })
 
     console.log(event)
-    console.log('ok')
     //
     // const projectionData = {
     //   aggregateID: event.aggregateID,

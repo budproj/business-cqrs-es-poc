@@ -8,7 +8,7 @@ export interface ActionInterface<P> {
 }
 
 export interface ActionProperties<P> {
-  name: ActionMetadata['name']
+  name: string
   previousAction?: Action
   payload?: P
 }
@@ -21,7 +21,7 @@ abstract class Action<P = any> implements ActionInterface<P> {
   public readonly payload?: P
 
   constructor({ name, previousAction, payload }: ActionProperties<P>) {
-    this.metadata = new ActionMetadata(name)
+    this.metadata = new ActionMetadata({ name })
     this.tracing = new ActionTracing(previousAction)
     this.payload = payload
   }

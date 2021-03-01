@@ -1,19 +1,20 @@
 import { without } from 'lodash'
-import { v4 as uuidv4 } from 'uuid'
+
+import ID from '@lib/ddd/value-objects/id.value-object'
 
 import Action from './action'
 
 interface ActionTracingInterface {
-  correlationID: string
+  correlationID: ID
   stack: Action[]
 }
 
 class ActionTracing implements ActionTracingInterface {
-  public readonly correlationID: string
+  public readonly correlationID: ID
   public readonly stack: Action[]
 
   constructor(protected readonly previousAction?: Action) {
-    this.correlationID = previousAction?.tracing.correlationID ?? uuidv4()
+    this.correlationID = previousAction?.tracing.correlationID ?? ID.generate()
     this.stack = this.appendToPreviousStack(previousAction)
   }
 

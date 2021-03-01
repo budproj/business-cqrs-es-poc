@@ -1,9 +1,9 @@
 import { Logger } from '@nestjs/common'
 
 import { ArgumentNotProvidedException } from '@core/exceptions/argument-not-provided.exception'
-import ID from '@core/value-objects/id.value-object'
 import CQRSAggregate from '@lib/cqrs/aggregate'
 import Action from '@lib/cqrs/bus/action/action'
+import ID from '@lib/ddd/value-objects/id.value-object'
 import CreatedUserEvent from '@modules/user/core/application/events/created-user/created-user.event'
 import { CreateUserCommandPayload } from '@modules/user/use-cases/create-user/application/create-user.command.payload'
 

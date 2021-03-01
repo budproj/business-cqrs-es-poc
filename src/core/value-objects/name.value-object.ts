@@ -1,15 +1,15 @@
 import { ArgumentInvalidException } from '@core/exceptions/argument-invalid.exception'
-import Specification from '@lib/ddd/specification'
-import ValueObject, { DomainPrimitive } from '@lib/ddd/value-object'
+import Specification from '@lib/ddd/specifications/base.specification'
+import ValueObject, { DomainPrimitive } from '@lib/ddd/value-objects/base.value-object'
 
-class HasTwoLettersOrMoreSpecification extends Specification<string> {
-  currentRevision = this.rev20210226CheckNumberOfLetters
+class IsValidNameSpecification extends Specification<string> {
+  currentRevision = this.rev20210226HasTwoLettersOrMore
 
   public isSatisfiedBy(value: string) {
     return this.currentRevision(value)
   }
 
-  private rev20210226CheckNumberOfLetters(value: string) {
+  private rev20210226HasTwoLettersOrMore(value: string) {
     return value.length >= 2
   }
 }
@@ -24,10 +24,10 @@ class Name extends ValueObject<string> {
   }
 
   protected validate({ value }: DomainPrimitive<string>) {
-    const hasTwoLettersOrMore = new HasTwoLettersOrMoreSpecification()
-    const isValid = hasTwoLettersOrMore.isSatisfiedBy(value)
+    const isValidName = new IsValidNameSpecification()
+    const isValid = isValidName.isSatisfiedBy(value)
 
-    if (!isValid) throw new ArgumentInvalidException('The name must have two letters or more')
+    if (!isValid) throw new ArgumentInvalidException('The name is not valid')
   }
 }
 
