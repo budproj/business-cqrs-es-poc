@@ -20,9 +20,7 @@ class UserAggregate extends CQRSAggregate implements UserAggregateInterface {
 
   public create(userData?: CreateUserCommandPayload) {
     if (!userData)
-      throw new ArgumentNotProvidedException(
-        'You must pass user data in order to create a new user',
-      )
+      throw new ArgumentNotProvidedException('You must pass user data to create a new user')
 
     this.logger.log({
       userData,

@@ -2,12 +2,12 @@ import { Logger } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
-import { MutationResult } from '@interface/adapters/graphql.dto'
+import { UserMutationResult } from '@modules/user/presentation/adapters/graphql.dto'
 import { CreateUserCommand } from '@modules/user/use-cases/create-user/application/create-user.command'
 import { CreateUserCommandPayload } from '@modules/user/use-cases/create-user/application/create-user.command.payload'
-import { CreateUserResponse } from '@modules/user/use-cases/create-user/presentation/create-user.response.dto'
 
 import { CreateUserInput } from './create-user.graphql.dto'
+import { CreateUserGraphQLResponse } from './create-user.graphql.response.dto'
 import { CreateUserRequest } from './create-user.request.dto'
 
 @Resolver()
@@ -16,7 +16,7 @@ class CreateUserGraphQLResolver {
 
   constructor(private readonly commandBus: CommandBus) {}
 
-  @Mutation(() => MutationResult, { name: 'createUser' })
+  @Mutation(() => UserMutationResult, { name: 'createUser' })
   protected async createUser(
     @Args('user', { type: () => CreateUserInput })
     user: CreateUserInput,
@@ -32,9 +32,7 @@ class CreateUserGraphQLResolver {
 
     await this.commandBus.execute(createUserCommand)
 
-    const response = new CreateUserResponse({
-      correlationID: createUserCommand.tracing.correlationID,
-    })
+    const response = new CreateUserGraphQLResponse(createUserCommand)
 
     return response
   }
