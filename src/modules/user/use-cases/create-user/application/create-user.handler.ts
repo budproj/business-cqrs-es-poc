@@ -17,9 +17,7 @@ class CreateUserCommandHandler implements ICommandHandler<CreateUserCommand> {
       message: `New ${CREATE_USER_COMMAND} command received`,
     })
 
-    const user = await this.createUserService.createUser(command)
-
-    return user
+    await this.createUserService.createUser(command)
   }
 }
 

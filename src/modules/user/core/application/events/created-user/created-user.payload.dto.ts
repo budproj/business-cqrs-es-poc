@@ -7,7 +7,7 @@ interface CreatedUserPayloadProperties {
 export class CreatedUserPayload {
   public readonly firstName: Name
 
-  constructor(protected readonly properties: CreatedUserPayloadProperties) {
-    this.firstName = properties.firstName
+  constructor({ firstName }: CreatedUserPayloadProperties) {
+    this.firstName = firstName
   }
 }

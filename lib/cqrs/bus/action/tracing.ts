@@ -19,7 +19,8 @@ class ActionTracing implements ActionTracingInterface {
 
   private appendToPreviousStack(previousAction?: Action): Action[] {
     const previousActionStack = previousAction?.tracing.stack ?? []
-    const stack = without([previousAction, ...previousActionStack]) as Action[]
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    const stack = without([previousAction, ...previousActionStack], undefined) as Action[]
 
     return stack
   }

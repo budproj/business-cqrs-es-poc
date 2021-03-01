@@ -1,4 +1,4 @@
-import { ObjectLiteral } from '@core/types/object-literal.type'
+import { ObjectLiteral } from '@lib/types/object-literal'
 
 import { EXCEPTION } from './constants'
 

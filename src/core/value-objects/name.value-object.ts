@@ -1,7 +1,6 @@
 import { ArgumentInvalidException } from '@core/exceptions/argument-invalid.exception'
-import Specification from '@core/specifications/specification'
-
-import ValueObject, { DomainPrimitive } from './value-object'
+import Specification from '@lib/ddd/specification'
+import ValueObject, { DomainPrimitive } from '@lib/ddd/value-object'
 
 class HasTwoLettersOrMoreSpecification extends Specification<string> {
   currentRevision = this.rev20210226CheckNumberOfLetters

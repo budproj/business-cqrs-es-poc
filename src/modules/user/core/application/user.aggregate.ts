@@ -1,38 +1,43 @@
-// import CQRSAggregate from '@lib/cqrs/aggregate'
-// import { Logger } from '@nestjs/common'
-// import { v4 as uuidv4 } from 'uuid'
-// import Action from '@lib/cqrs/bus/action/action'
-// import UserEventService from './events/user.events.service'
-//
-// interface UserAggregateRootInterface {
-//   create: (newUser: NewUserDTO) => void
-// }
-//
-// class UserAggregateRoot extends CQRSAggregate implements UserAggregateRootInterface {
-//   protected readonly logger = new Logger(UserAggregateRoot.name)
-//
-//   constructor(
-//     protected readonly command: Action,
-//     protected readonly eventService: UserEventService,
-//   ) {
-//     super()
-//   }
-//
-//   public create(newUser: NewUserCommandPayload) {
-//     const user = {
-//       ...newUser,
-//       userID: uuidv4(),
-//     }
-//
-//     this.logger.log({
-//       newUser,
-//       user,
-//       message: `New create user request received`,
-//     })
-//
-//     const event = this.eventProvider.buildEvent<NewUserDTO>(CREATED_USER, user, this.command)
-//     this.apply(event)
-//   }
-// }
-//
-// export default UserAggregateRoot
+import { Logger } from '@nestjs/common'
+
+import { ArgumentNotProvidedException } from '@core/exceptions/argument-not-provided.exception'
+import ID from '@core/value-objects/id.value-object'
+import CQRSAggregate from '@lib/cqrs/aggregate'
+import Action from '@lib/cqrs/bus/action/action'
+import CreatedUserEvent from '@modules/user/core/application/events/created-user/created-user.event'
+import { CreateUserCommandPayload } from '@modules/user/use-cases/create-user/application/create-user.command.payload'
+
+interface UserAggregateInterface {
+  create: (userData: CreateUserCommandPayload) => void
+}
+
+class UserAggregate extends CQRSAggregate implements UserAggregateInterface {
+  protected readonly logger = new Logger(UserAggregate.name)
+
+  constructor(protected readonly command: Action) {
+    super()
+  }
+
+  public create(userData?: CreateUserCommandPayload) {
+    if (!userData)
+      throw new ArgumentNotProvidedException(
+        'You must pass user data in order to create a new user',
+      )
+
+    this.logger.log({
+      userData,
+      message: `New create user request received`,
+    })
+
+    const aggregateID = ID.generate()
+    const event = new CreatedUserEvent({
+      aggregateID,
+      payload: userData,
+      previousAction: this.command,
+    })
+
+    this.dispatchEvent(event)
+  }
+}
+
+export default UserAggregate

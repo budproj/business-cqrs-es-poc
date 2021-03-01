@@ -1,5 +1,6 @@
 import { ArgumentNotProvidedException } from '@core/exceptions/argument-not-provided.exception'
-import DomainObject from '@core/objects/domain.object'
+
+import DomainObject from './object'
 
 type Primitives = string | number | boolean
 type ValueObjectProperties<T> = T extends Primitives | Date ? DomainPrimitive<T> : T

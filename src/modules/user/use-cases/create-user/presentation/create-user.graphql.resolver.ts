@@ -1,12 +1,14 @@
 import { Logger } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
 import { MutationResult } from '@interface/adapters/graphql.dto'
+import { CreateUserCommand } from '@modules/user/use-cases/create-user/application/create-user.command'
+import { CreateUserCommandPayload } from '@modules/user/use-cases/create-user/application/create-user.command.payload'
+import { CreateUserResponse } from '@modules/user/use-cases/create-user/presentation/create-user.response.dto'
 
 import { CreateUserInput } from './create-user.graphql.dto'
 import { CreateUserRequest } from './create-user.request.dto'
-import { CreateUserCommand } from '@modules/user/use-cases/create-user/application/create-user.command'
-import { CommandBus } from '@nestjs/cqrs'
 
 @Resolver()
 class CreateUserGraphQLResolver {
@@ -25,11 +27,16 @@ class CreateUserGraphQLResolver {
     })
 
     const createUserRequest = new CreateUserRequest(user)
-    const createUserCommand = new CreateUserCommand({ payload: createUserRequest })
+    const createUserCommandPayload = new CreateUserCommandPayload(createUserRequest)
+    const createUserCommand = new CreateUserCommand({ payload: createUserCommandPayload })
 
     await this.commandBus.execute(createUserCommand)
 
-    return {}
+    const response = new CreateUserResponse({
+      correlationID: createUserCommand.tracing.correlationID,
+    })
+
+    return response
   }
 }
 

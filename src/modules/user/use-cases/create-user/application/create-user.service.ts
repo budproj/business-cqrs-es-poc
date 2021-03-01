@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common'
+import { EventPublisher } from '@nestjs/cqrs'
+
+import UserAggregate from '@modules/user/core/application/user.aggregate'
+
 import { CreateUserCommand } from './create-user.command'
 
 interface CreateUserServiceInterface {
@@ -7,8 +11,14 @@ interface CreateUserServiceInterface {
 
 @Injectable()
 class CreateUserService implements CreateUserServiceInterface {
+  constructor(protected readonly eventPublisher: EventPublisher) {}
+
   public async createUser(createUserCommand: CreateUserCommand) {
-    console.log(createUserCommand)
+    const userAggregate = new UserAggregate(createUserCommand)
+    const test = this.eventPublisher.mergeObjectContext(userAggregate)
+
+    test.create(createUserCommand.payload)
+    test.commit()
   }
 }
 

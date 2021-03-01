@@ -12,6 +12,6 @@ import { TypeORMFactory } from './config.factory'
     }),
   ],
 })
-class TypeORMModule {}
+class ORMModule {}
 
-export default TypeORMModule
+export default ORMModule

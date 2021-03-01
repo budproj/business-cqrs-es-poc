@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 
-import TypeORMModule from './orm/orm.module'
+import ORMModule from './orm/orm.module'
 
 @Module({
-  imports: [TypeORMModule],
+  imports: [ORMModule],
 })
 class InfrastructureModule {}
 

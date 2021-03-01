@@ -44,7 +44,7 @@ const DEFAULT_CONNECTION = 'mongodb'
 const DEFAULT_DATABASE = 'execution_projections'
 const DEFAULT_HOST = 'localhost'
 const DEFAULT_PORT = 27017
-const DEFAULT_ENTITIES = ['dist/src/**/entities.js']
+const DEFAULT_ENTITIES = ['dist/src/**/*.entity.js']
 
 export const typeORMConfig: TypeORMConfig = {
   type: TYPEORM_CONNECTION ?? DEFAULT_CONNECTION,

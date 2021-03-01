@@ -1,6 +1,8 @@
-import Action from '@lib/cqrs/bus/action/action'
 import { Logger } from '@nestjs/common'
 import { AggregateRoot } from '@nestjs/cqrs'
+
+import Action from '@lib/cqrs/bus/action/action'
+import ValueObject from '@lib/ddd/value-object'
 
 interface CQRSAggregateInterface {
   clearEvents: () => void
@@ -9,6 +11,8 @@ interface CQRSAggregateInterface {
 
 abstract class CQRSAggregate extends AggregateRoot implements CQRSAggregateInterface {
   protected readonly logger!: Logger
+  protected readonly command!: Action
+  protected readonly aggregateID!: ValueObject<string>
   private _events: Action[] = []
 
   get events(): Action[] {
