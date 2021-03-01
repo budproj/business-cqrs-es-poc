@@ -1,5 +1,5 @@
-import { ActionMetadata } from 'lib/bus/action/dtos'
-import { QueryDTO, QueryParameters } from 'lib/bus/query/dtos'
+import { ActionMetadata } from 'lib/cqrs/bus/action/dtos'
+import { QueryDTO, QueryParameters } from 'lib/cqrs/bus/query/dtos'
 
 import { READ_ALL_REGISTRATION } from './constants'
 

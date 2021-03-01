@@ -1,5 +1,5 @@
-import { ActionMetadata } from 'lib/bus/action/dtos'
-import { CommandDTO, CommandParameters } from 'lib/bus/command/dtos'
+import { ActionMetadata } from 'lib/cqrs/bus/action/dtos'
+import { CommandDTO, CommandParameters } from 'lib/cqrs/bus/command/dtos'
 import { NewUserCommandPayload } from 'src/user/domain/model/dtos'
 
 import { CREATE_USER } from './constants'

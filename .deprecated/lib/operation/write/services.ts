@@ -1,7 +1,7 @@
 import { EventPublisher } from '@nestjs/cqrs'
 
-import { CommandDTO } from 'lib/bus/command/dtos'
-import { EventProvider } from 'lib/bus/event/services'
+import { CommandDTO } from 'lib/cqrs/bus/command/dtos'
+import { EventProvider } from 'lib/cqrs/bus/event/services'
 
 import { OperationWriteModel, OperationWriteModelConstructor } from './models'
 

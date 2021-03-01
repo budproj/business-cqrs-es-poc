@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
-import { EventHashmap, EventProvider } from 'lib/bus/event/services'
+import { EventHashmap, EventProvider } from 'lib/cqrs/bus/event/services'
 
 import { CREATED_USER } from './constants'
 import { CreatedUserEventDTO } from './dtos'

@@ -1,5 +1,5 @@
-import Action from '@lib/bus/action/action'
-import { CreateUserRequest } from '@modules/user/core/use-cases/create-user/create-user.request.dto'
+import Action from '@lib/cqrs/bus/action/action'
+import { CreateUserRequest } from '@modules/user/use-cases/create-user/presentation/create-user.request.dto'
 
 import { CREATE_USER_COMMAND } from './constants'
 

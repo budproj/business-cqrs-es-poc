@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 
-import { QueryDTO } from 'lib/bus/query/dtos'
+import { QueryDTO } from 'lib/cqrs/bus/query/dtos'
 import { OperationReadModel } from 'lib/operation/read/models'
 import { UserRegistrationEntity } from 'src/user/infrastructure/entities'
 

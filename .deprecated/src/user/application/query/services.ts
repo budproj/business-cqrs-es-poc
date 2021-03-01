@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { QueryBus } from '@nestjs/cqrs'
 
-import { QueryDispatcher, QueryHashmap } from 'lib/bus/query/services'
+import { QueryDispatcher, QueryHashmap } from 'lib/cqrs/bus/query/services'
 
 import { READ_ALL_REGISTRATION } from './constants'
 import { ReadAllRegistrationQueryDTO } from './dtos'

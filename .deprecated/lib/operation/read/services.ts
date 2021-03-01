@@ -1,7 +1,7 @@
 import { MongoRepository } from 'typeorm'
 
-import { CommandDTO } from 'lib/bus/command/dtos'
-import { QueryDTO } from 'lib/bus/query/dtos'
+import { CommandDTO } from 'lib/cqrs/bus/command/dtos'
+import { QueryDTO } from 'lib/cqrs/bus/query/dtos'
 import { Entity } from 'lib/orm/entity'
 
 import { OperationReadModel, OperationReadModelConstructor } from './models'

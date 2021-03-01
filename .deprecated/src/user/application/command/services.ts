@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
-import { CommandDispatcher, CommandHashmap } from 'lib/bus/command/services'
+import { CommandDispatcher, CommandHashmap } from 'lib/cqrs/bus/command/services'
 
 import { CREATE_USER } from './constants'
 import { CreateUserCommandDTO } from './dtos'

@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common'
 
-import UserUseCasesModule from './use-cases/user-use-cases.module'
+import UserApplicationModule from './application/user-application.module'
 
 @Module({
-  imports: [UserUseCasesModule],
-  exports: [UserUseCasesModule],
+  imports: [UserApplicationModule],
 })
 class UserCoreModule {}
 

@@ -1,6 +1,6 @@
-import { CommandDTO } from 'lib/bus/command/dtos'
-import { CommandDispatcher } from 'lib/bus/command/services'
-import { QueryDispatcher } from 'lib/bus/query/services'
+import { CommandDTO } from 'lib/cqrs/bus/command/dtos'
+import { CommandDispatcher } from 'lib/cqrs/bus/command/services'
+import { QueryDispatcher } from 'lib/cqrs/bus/query/services'
 import { MutationResult } from 'lib/graphql/models'
 
 export abstract class ApplicationService {

@@ -1,14 +1,14 @@
 import { QueryBus } from '@nestjs/cqrs'
 
-import Action, { ActionConstructor } from '@lib/bus/action/action'
+import Action, { ActionConstructor } from '@lib/cqrs/bus/action/action'
 
-export interface QueryProviderInterface {
+export interface QueryServiceInterface {
   dispatch: <R = any, P = any>(queryName: string, payload: P, correlationID?: string) => Promise<R>
 }
 
 export type QueryHashmap = Record<string, ActionConstructor>
 
-abstract class QueryProvider implements QueryProviderInterface {
+abstract class QueryService implements QueryServiceInterface {
   constructor(protected readonly queries: QueryHashmap, protected readonly queryBus: QueryBus) {}
 
   public async dispatch<R = any, P = any>(queryName: string, payload?: P) {
@@ -21,4 +21,4 @@ abstract class QueryProvider implements QueryProviderInterface {
   }
 }
 
-export default QueryProvider
+export default QueryService

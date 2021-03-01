@@ -1,12 +1,12 @@
-import Action, { ActionConstructor } from '@lib/bus/action/action'
+import Action, { ActionConstructor } from '@lib/cqrs/bus/action/action'
 
-export interface EventProviderInterface {
+export interface EventServiceInterface {
   buildEvent: <P = any>(eventName: string, payload: P) => Action
 }
 
 export type EventHashmap = Record<string, ActionConstructor>
 
-abstract class EventProvider implements EventProviderInterface {
+abstract class EventService implements EventServiceInterface {
   constructor(protected readonly events: EventHashmap) {}
 
   public buildEvent<P = any, C = any>(
@@ -21,4 +21,4 @@ abstract class EventProvider implements EventProviderInterface {
   }
 }
 
-export default EventProvider
+export default EventService

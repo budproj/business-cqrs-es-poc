@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common'
 import { v4 as uuidv4 } from 'uuid'
 
-import { CommandDTO } from 'lib/bus/command/dtos'
+import { CommandDTO } from 'lib/cqrs/bus/command/dtos'
 import { OperationWriteModel } from 'lib/operation/write/models'
 import { CREATED_USER } from 'src/user/domain/event/constants'
 import { UserDomainEventProvider } from 'src/user/domain/event/services'

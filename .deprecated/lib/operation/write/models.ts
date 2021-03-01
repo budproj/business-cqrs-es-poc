@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common'
 import { AggregateRoot, IEvent } from '@nestjs/cqrs'
 
-import { EventProvider } from 'lib/bus/event/services'
+import { EventProvider } from 'lib/cqrs/bus/event/services'
 
 interface OperationWriteModelInterface {
   apply: (event: IEvent) => void

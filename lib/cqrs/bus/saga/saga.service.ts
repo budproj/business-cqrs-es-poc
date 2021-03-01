@@ -4,35 +4,35 @@ import deepmerge from 'deepmerge'
 import { Observable } from 'rxjs'
 import { delay, map } from 'rxjs/operators'
 
-import Action, { ActionConstructor } from '@lib/bus/action/action'
+import Action, { ActionConstructor } from '@lib/cqrs/bus/action/action'
 
 import { DEFAULT_SAGA_DELAY } from './constants'
 
-interface SagaProviderInterface {
+interface SagaServiceInterface {
   react: (
     observableEvents: Observable<any>,
     Event: Type<IEvent>,
     Command: ActionConstructor,
-    providedConfig?: SagaProviderConfigInterface,
+    providedConfig?: SagaServiceConfigInterface,
   ) => Observable<Action>
 }
 
-export interface SagaProviderConfigInterface {
+export interface SagaServiceConfigInterface {
   millisecondsToWait?: number
 }
 
-const sagaProviderDefaultConfig: SagaProviderConfigInterface = {
+const sagaServiceDefaultConfig: SagaServiceConfigInterface = {
   millisecondsToWait: DEFAULT_SAGA_DELAY,
 }
 
-abstract class SagaProvider implements SagaProviderInterface {
+abstract class SagaService implements SagaServiceInterface {
   public react(
     observableEvents: Observable<any>,
     Event: Type<IEvent>,
     Command: ActionConstructor,
-    providedConfig: SagaProviderConfigInterface = {},
+    providedConfig: SagaServiceConfigInterface = {},
   ) {
-    const config = deepmerge(sagaProviderDefaultConfig, providedConfig)
+    const config = deepmerge(sagaServiceDefaultConfig, providedConfig)
 
     return observableEvents.pipe(
       ofType(Event),
@@ -42,4 +42,4 @@ abstract class SagaProvider implements SagaProviderInterface {
   }
 }
 
-export default SagaProvider
+export default SagaService
