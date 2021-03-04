@@ -33,7 +33,7 @@ const DEFAULT_PLAYGROUND_ENABLED = false
 const DEFAULT_INSTROSPECTION_ENABLED = false
 const DEFAULT_SCHEMA_FILEPATH = './dist/src/interface/graphql/schema.gql'
 
-export const graphQLConfig: GraphQLConfig = {
+export const graphqlConfig: GraphQLConfig = {
   debug: {
     enabled: GRAPHQL_DEBUG_ENABLED?.toUpperCase() === 'TRUE' ?? DEFAULT_DEBUG_ENABLED,
   },
@@ -53,5 +53,5 @@ export const graphQLConfig: GraphQLConfig = {
 }
 
 export function createGraphQLConfig(): GraphQLConfig {
-  return graphQLConfig
+  return graphqlConfig
 }
