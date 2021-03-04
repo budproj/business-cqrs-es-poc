@@ -19,8 +19,6 @@ export const loggingConfig: LoggingConfig = {
   serviceName: LOGGING_SERVICE_NAME ?? DEFAULT_LOGGING_SERVICE_NAME,
 }
 
-function createLoggingConfig(): LoggingConfig {
+export function createLoggingConfig(): LoggingConfig {
   return loggingConfig
 }
-
-export default createLoggingConfig

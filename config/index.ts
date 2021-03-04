@@ -18,8 +18,6 @@ const Config: Config = {
   typeORM: typeORMConfig,
 }
 
-function createConfig(): Config {
+export function createConfig(): Config {
   return Config
 }
-
-export default createConfig

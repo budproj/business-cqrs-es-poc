@@ -60,8 +60,6 @@ export const serverConfig: ServerConfig = {
   },
 }
 
-function createServerConfig(): ServerConfig {
+export function createServerConfig(): ServerConfig {
   return serverConfig
 }
-
-export default createServerConfig

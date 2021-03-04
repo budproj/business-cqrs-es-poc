@@ -71,8 +71,6 @@ export const typeORMConfig: TypeORMConfig = {
   },
 }
 
-function createTypeORMConfig(): TypeORMConfig {
+export function createTypeORMConfig(): TypeORMConfig {
   return typeORMConfig
 }
-
-export default createTypeORMConfig

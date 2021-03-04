@@ -52,8 +52,6 @@ export const graphQLConfig: GraphQLConfig = {
   },
 }
 
-function createGraphQLConfig(): GraphQLConfig {
+export function createGraphQLConfig(): GraphQLConfig {
   return graphQLConfig
 }
-
-export default createGraphQLConfig

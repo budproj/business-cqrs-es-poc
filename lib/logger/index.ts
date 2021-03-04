@@ -11,7 +11,7 @@ export enum LOG_LEVEL {
   ERROR = 'error',
 }
 
-function buildLogger(level?: LOG_LEVEL, serviceName?: string) {
+export function buildLogger(level?: LOG_LEVEL, serviceName?: string) {
   const logger = WinstonModule.createLogger({
     level,
     defaultMeta: { service: serviceName },
@@ -24,5 +24,3 @@ function buildLogger(level?: LOG_LEVEL, serviceName?: string) {
 
   return logger
 }
-
-export default buildLogger
