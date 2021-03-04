@@ -1,13 +1,17 @@
 version: '3.8'
 services:
-  mongodb:
-    image: mongo
-    container_name: mongodb
+  postgres:
+    image: postgres
+    container_name: execution-backend
     environment:
-      - PUID=1000
-      - PGID=1000
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: ${POSTGRES_DATA:-/data/postgres}
     volumes:
-      - ./db:/data/db
+      - postgres:${POSTGRES_DATA:-/data/postgres}
     ports:
-      - 27017:27017
+      - 5432:5432
     restart: unless-stopped
+
+volumes:
+  postgres:

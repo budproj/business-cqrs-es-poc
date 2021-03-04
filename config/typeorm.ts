@@ -40,10 +40,12 @@ const {
   TYPEORM_LOGGING,
 } = process.env
 
-const DEFAULT_CONNECTION = 'mongodb'
+const DEFAULT_CONNECTION = 'postgres'
 const DEFAULT_DATABASE = 'execution_projections'
 const DEFAULT_HOST = 'localhost'
-const DEFAULT_PORT = 27017
+const DEFAULT_PORT = 5432
+const DEFAULT_USERNAME = 'postgres'
+const DEFAULT_PASSWORD = 'changeme'
 const DEFAULT_ENTITIES = ['dist/src/**/*.entity.js']
 
 export const typeORMConfig: TypeORMConfig = {
@@ -56,8 +58,8 @@ export const typeORMConfig: TypeORMConfig = {
   },
 
   authentication: {
-    user: TYPEORM_USERNAME,
-    password: TYPEORM_PASSWORD,
+    user: TYPEORM_USERNAME ?? DEFAULT_USERNAME,
+    password: TYPEORM_PASSWORD ?? DEFAULT_PASSWORD,
   },
 
   pattern: {
