@@ -41,9 +41,10 @@ export class UserGraphQLResolver {
     })
 
     const createUserRequest = new CreateUserApplicationRequest(userInputRequest)
-    const result = this.userService.createUser(createUserRequest)
-    console.log(result)
+    const commandResult = await this.userService.createUser(createUserRequest)
 
-    return {}
+    const response = new UserMutationResultGraphQLResponse(commandResult)
+
+    return response
   }
 }
