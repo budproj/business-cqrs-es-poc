@@ -1,4 +1,4 @@
-import { CreateUserApplicationRequest } from '@core/user/application/requests/create-user.request'
+import { CreateUserApplicationRequest } from '@core/modules/user/application/requests/create-user.request'
 import { Action } from '@infrastructure/bus/action/action'
 import { Command } from '@infrastructure/bus/command/command'
 

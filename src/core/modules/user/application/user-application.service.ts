@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
-import { CreateUserApplicationRequest } from '@core/user/application/requests/create-user.request'
+import { CreateUserApplicationRequest } from '@core/modules/user/application/requests/create-user.request'
 
 import { CreateUserCommand } from './use-cases/create-user/create-user.command'
 

@@ -1,8 +1,8 @@
 import { Logger } from '@nestjs/common'
 import { Args, ID, Resolver, Query, Mutation } from '@nestjs/graphql'
 
-import { CreateUserApplicationRequest } from '@core/user/application/requests/create-user.request'
-import { UserApplicationService } from '@core/user/application/user-application.service'
+import { CreateUserApplicationRequest } from '@core/modules/user/application/requests/create-user.request'
+import { UserApplicationService } from '@core/modules/user/application/user-application.service'
 import { UserInputGraphQLRequest } from '@interface/adapters/graphql/requests/user.request'
 import {
   UserMutationResultGraphQLResponse,
