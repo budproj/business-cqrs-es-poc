@@ -1,8 +1,9 @@
 import { v4 as uuidV4, validate } from 'uuid'
 
-import { ArgumentInvalidException } from '@core/exceptions/argument-invalid.exception'
+import { DomainPrimitive } from '@core/common/domain/primitives'
+import { ArgumentInvalidException } from '@core/common/exceptions/argument-invalid.exception'
 
-import ValueObject, { DomainPrimitive } from './base.value-object'
+import { ValueObject } from './base.value-object'
 
 class ID extends ValueObject<string> {
   constructor(value: string) {

@@ -1,4 +1,4 @@
-import { ObjectLiteral } from '@lib/types/object-literal'
+import { ObjectLiteral } from '@core/common/types/object-literal'
 
 import { EXCEPTION } from './constants'
 
@@ -13,7 +13,7 @@ interface ExceptionInterface {
   toJSON: () => SerializedException
 }
 
-abstract class Exception extends Error implements ExceptionInterface {
+export abstract class Exception extends Error implements ExceptionInterface {
   abstract name: EXCEPTION
 
   constructor(readonly message: string, readonly metadata?: ObjectLiteral) {
@@ -30,5 +30,3 @@ abstract class Exception extends Error implements ExceptionInterface {
     }
   }
 }
-
-export default Exception

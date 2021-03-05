@@ -1,20 +1,21 @@
 import { Logger } from '@nestjs/common'
 import { AggregateRoot } from '@nestjs/cqrs'
 
+import ID from '@core/common/domain/value-objects/id.value-object'
 import { Command } from '@infrastructure/bus/command/command'
 import { Event } from '@infrastructure/bus/event/event'
 
-interface ApplicationAggregateInterface {
+interface ApplicationBaseAggregateInterface {
   clearEvents: () => void
   dispatchEvent: (event: Event) => void
 }
 
-export abstract class ApplicationAggregate
+export abstract class ApplicationBaseAggregate
   extends AggregateRoot
-  implements ApplicationAggregateInterface {
+  implements ApplicationBaseAggregateInterface {
   protected readonly logger!: Logger
   protected readonly command!: Command
-  protected readonly aggregateID!: string
+  protected readonly aggregateID!: ID
   private _events: Event[] = []
 
   get events(): Event[] {

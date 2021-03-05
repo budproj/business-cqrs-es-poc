@@ -1,19 +1,15 @@
-import { ArgumentNotProvidedException } from '@core/exceptions/argument-not-provided.exception'
-import DomainObject from '@lib/ddd/object'
+import { DomainObject } from '@core/common/domain/base.object'
+import { DomainPrimitive, Primitives } from '@core/common/domain/primitives'
+import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-not-provided.exception'
 
-type Primitives = string | number | boolean
 type ValueObjectProperties<T> = T extends Primitives | Date ? DomainPrimitive<T> : T
-
-export interface DomainPrimitive<T = Primitives> {
-  value: T
-}
 
 interface ValueObjectInterface<T> {
   equals: (candidate: ValueObject<T>) => boolean
   value: T
 }
 
-abstract class ValueObject<T> extends DomainObject implements ValueObjectInterface<T> {
+export abstract class ValueObject<T> extends DomainObject implements ValueObjectInterface<T> {
   constructor(protected readonly properties: ValueObjectProperties<T>) {
     super()
     this.throwIfEmpty(properties)
@@ -66,5 +62,3 @@ abstract class ValueObject<T> extends DomainObject implements ValueObjectInterfa
 
   protected abstract validate(properties: ValueObjectProperties<T>): void
 }
-
-export default ValueObject
