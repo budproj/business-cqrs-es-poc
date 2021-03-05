@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql'
 
 import { EntityObjectGraphQLResponse, MutationResultGraphQLResponse } from './base.response'
 
-@ObjectType({
+@ObjectType('User', {
   implements: () => EntityObjectGraphQLResponse,
   description: 'This object contains all data related to an user account',
 })
@@ -11,7 +11,7 @@ export class UserObjectGraphQLResponse extends EntityObjectGraphQLResponse {
   public readonly firstName!: string
 }
 
-@ObjectType({
+@ObjectType('UserMutationResult', {
   implements: () => MutationResultGraphQLResponse,
   description: 'The result data from an user mutation',
 })

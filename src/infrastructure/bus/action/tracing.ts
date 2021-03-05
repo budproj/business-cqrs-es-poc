@@ -1,20 +1,21 @@
 import { without } from 'lodash'
 
-import ID from '@lib/ddd/value-objects/id.value-object'
+import { ActionObject } from '@infrastructure/bus/action/object'
 
-import Action from './action'
+import { Action } from './action'
 
 interface ActionTracingInterface {
-  correlationID: ID
+  correlationID: string
   stack: Action[]
 }
 
-class ActionTracing implements ActionTracingInterface {
-  public readonly correlationID: ID
+export class ActionTracing extends ActionObject implements ActionTracingInterface {
+  public readonly correlationID: string
   public readonly stack: Action[]
 
   constructor(protected readonly previousAction?: Action) {
-    this.correlationID = previousAction?.tracing.correlationID ?? ID.generate()
+    super()
+    this.correlationID = previousAction?.tracing.correlationID ?? this.generateID()
     this.stack = this.appendToPreviousStack(previousAction)
   }
 
@@ -26,5 +27,3 @@ class ActionTracing implements ActionTracingInterface {
     return stack
   }
 }
-
-export default ActionTracing

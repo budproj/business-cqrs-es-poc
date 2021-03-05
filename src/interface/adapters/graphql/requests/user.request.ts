@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 
-@InputType({
+@InputType('UserInput', {
   description:
     'Relevant input data to mutate a User object. We can use this data to create or update a given user',
 })

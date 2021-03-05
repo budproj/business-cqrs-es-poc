@@ -1,12 +1,12 @@
 import { Field, ID, InterfaceType } from '@nestjs/graphql'
 
-@InterfaceType()
+@InterfaceType('Entity')
 export abstract class EntityObjectGraphQLResponse {
   @Field(() => ID, { description: 'The ID of this entity' })
   public readonly id!: string
 }
 
-@InterfaceType()
+@InterfaceType('MutationResult')
 export abstract class MutationResultGraphQLResponse {
   @Field(() => ID, {
     description:

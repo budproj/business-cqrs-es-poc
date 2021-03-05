@@ -1,5 +1,5 @@
-import ActionMetadata from './metadata'
-import ActionTracing from './tracing'
+import { ActionMetadata } from './metadata'
+import { ActionTracing } from './tracing'
 
 export interface ActionInterface<P> {
   metadata: ActionMetadata
@@ -15,7 +15,7 @@ export interface ActionProperties<P> {
 
 export type ActionConstructor = new (..._arguments: any[]) => Action
 
-abstract class Action<P = any> implements ActionInterface<P> {
+export abstract class Action<P = any> implements ActionInterface<P> {
   public readonly metadata: ActionMetadata
   public readonly tracing: ActionTracing
   public readonly payload?: P
@@ -26,5 +26,3 @@ abstract class Action<P = any> implements ActionInterface<P> {
     this.payload = payload
   }
 }
-
-export default Action
