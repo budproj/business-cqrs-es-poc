@@ -14,10 +14,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@modules/*": ["src/modules/*"],
+      "@core/*": ["src/core/*"],
       "@interface/*": ["src/interface/*"],
       "@infrastructure/*": ["src/infrastructure/*"],
-      "@core/*": ["src/core/*"],
       "@config": ["config/index"],
       "@config/*": ["config/*"],
       "@lib/*": ["lib/*"]

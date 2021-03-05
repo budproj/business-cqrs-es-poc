@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql'
 
+import { UserModule } from '@core/user/user.module'
+
 import { GraphQLAdapterFactory } from './graphql-adapter.factory'
-import { UserResolver } from './resolvers/user.resolver'
+import { UserGraphQLResolver } from './resolvers/user.resolver'
 
 @Module({
   imports: [
@@ -11,7 +13,8 @@ import { UserResolver } from './resolvers/user.resolver'
       imports: [ConfigModule],
       useClass: GraphQLAdapterFactory,
     }),
+    UserModule,
   ],
-  providers: [UserResolver],
+  providers: [UserGraphQLResolver],
 })
 export class GraphQLAdapterModule {}

@@ -1,20 +1,24 @@
 import { Logger } from '@nestjs/common'
 import { Args, ID, Resolver, Query, Mutation } from '@nestjs/graphql'
 
+import { CreateUserApplicationRequest } from '@core/user/application/requests/create-user.request'
+import { UserApplicationService } from '@core/user/application/user-application.service'
+import { UserInputGraphQLRequest } from '@interface/adapters/graphql/requests/user.request'
 import {
-  UserInput,
-  UserMutationResult,
-  UserObject,
-} from '@interface/adapters/graphql/dtos/user.dto'
+  UserMutationResultGraphQLResponse,
+  UserObjectGraphQLResponse,
+} from '@interface/adapters/graphql/responses/user.response'
 
-@Resolver(() => UserObject)
-export class UserResolver {
-  private readonly logger = new Logger(UserResolver.name)
+@Resolver(() => UserObjectGraphQLResponse)
+export class UserGraphQLResolver {
+  private readonly logger = new Logger(UserGraphQLResolver.name)
 
-  @Query(() => UserObject, { name: 'user' })
+  constructor(private readonly userService: UserApplicationService) {}
+
+  @Query(() => UserObjectGraphQLResponse, { name: 'user' })
   protected async getUser(
     @Args('userID', { type: () => ID })
-    userID: UserObject['id'],
+    userID: UserObjectGraphQLResponse['id'],
   ) {
     this.logger.log({
       userID,
@@ -26,17 +30,19 @@ export class UserResolver {
     return {}
   }
 
-  @Mutation(() => UserMutationResult, { name: 'createUser' })
+  @Mutation(() => UserMutationResultGraphQLResponse, { name: 'createUser' })
   protected async createUser(
-    @Args('user', { type: () => UserInput })
-    userInput: UserInput,
+    @Args('user', { type: () => UserInputGraphQLRequest })
+    userInputRequest: UserInputGraphQLRequest,
   ) {
     this.logger.log({
-      userInput,
+      userInputRequest,
       message: 'Creating a new user',
     })
 
-    console.log(userInput)
+    const createUserRequest = new CreateUserApplicationRequest(userInputRequest)
+    const result = this.userService.createUser(createUserRequest)
+    console.log(result)
 
     return {}
   }
