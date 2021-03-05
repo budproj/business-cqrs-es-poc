@@ -1,4 +1,4 @@
-export interface SpecificationInterface<T> {
+interface SpecificationInterface<T> {
   currentRevision?: (candidate: T) => boolean
 
   isSatisfiedBy(candidate: T): boolean
@@ -45,5 +45,3 @@ class NotSpecification<T> extends Specification<T> {
     return !this.wrapped.isSatisfiedBy(candidate)
   }
 }
-
-export default Specification

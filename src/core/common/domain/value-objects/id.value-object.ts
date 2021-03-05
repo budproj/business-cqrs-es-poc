@@ -5,7 +5,7 @@ import { ArgumentInvalidException } from '@core/common/exceptions/argument-inval
 
 import { ValueObject } from './base.value-object'
 
-class ID extends ValueObject<string> {
+export class ID extends ValueObject<string> {
   constructor(value: string) {
     super({ value })
   }
@@ -24,5 +24,3 @@ class ID extends ValueObject<string> {
     }
   }
 }
-
-export default ID

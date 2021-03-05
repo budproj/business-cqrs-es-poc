@@ -1,6 +1,8 @@
 import { Logger } from '@nestjs/common'
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs'
 
+import { UserAggregate } from '@core/modules/user/application/user.aggregate'
+
 import { CREATE_USER_COMMAND } from './constants'
 import { CreateUserCommand } from './create-user.command'
 
@@ -16,6 +18,10 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
       message: `New ${CREATE_USER_COMMAND} command received`,
     })
 
-    console.log(command)
+    const userAggregateInstance = new UserAggregate(command)
+    const userAggregate = this.eventPublisher.mergeObjectContext(userAggregateInstance)
+
+    userAggregate.create(command.payload)
+    userAggregate.commit()
   }
 }
