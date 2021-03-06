@@ -1,5 +1,6 @@
 import { typeormConfig, TypeORMConfig } from 'config/typeorm'
 
+import { eventStoreConfig, EventStoreConfig } from './event-store'
 import { graphqlConfig, GraphQLConfig } from './graphql'
 import { loggingConfig, LoggingConfig } from './logging'
 import { serverConfig, ServerConfig } from './server'
@@ -9,6 +10,7 @@ export interface Config {
   logging: LoggingConfig
   graphql: GraphQLConfig
   typeorm: TypeORMConfig
+  eventStore: EventStoreConfig
 }
 
 const Config: Config = {
@@ -16,6 +18,7 @@ const Config: Config = {
   logging: loggingConfig,
   graphql: graphqlConfig,
   typeorm: typeormConfig,
+  eventStore: eventStoreConfig,
 }
 
 export function createConfig(): Config {

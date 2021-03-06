@@ -4,12 +4,16 @@ import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs'
 import { UserAggregateRoot } from '@core/modules/user/domain/user.aggregate-root'
 import { UserAggregate } from '@core/modules/user/user.aggregate'
 import { CreateUserCommand, CREATE_USER_COMMAND } from '@core/ports/primary/create-user.command'
+import { EventStorePort } from '@core/ports/secondary/event-store.port'
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler implements ICommandHandler<CreateUserCommand> {
   private readonly logger = new Logger(CreateUserCommandHandler.name)
 
-  constructor(private readonly eventPublisher: EventPublisher) {}
+  constructor(
+    protected readonly eventStorePort: EventStorePort,
+    private readonly eventPublisher: EventPublisher,
+  ) {}
 
   public async execute(command: CreateUserCommand) {
     this.logger.log({
@@ -20,10 +24,10 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
     const marshalledCommandPayload = command.payload.marshal()
     const user = UserAggregateRoot.createUser(marshalledCommandPayload)
 
-    const userAggregateInstance = new UserAggregate(command)
+    const userAggregateInstance = new UserAggregate(command, this.eventStorePort)
     const userAggregate = this.eventPublisher.mergeObjectContext(userAggregateInstance)
 
-    userAggregate.create(user)
+    await userAggregate.create(user)
     userAggregate.commit()
   }
 }
