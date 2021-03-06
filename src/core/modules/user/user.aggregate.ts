@@ -4,7 +4,7 @@ import { ApplicationAggregate } from '@core/common/application/aggregates/base.a
 import { Command } from '@infrastructure/bus/command/command'
 
 import { UserEntity } from './domain/entities/user.entity'
-import { CreatedUserEvent } from './events/created-user/created-user.event'
+import { CreatedUserEvent } from './events/created-user.event'
 
 interface UserAggregateInterface {
   create: (user: UserEntity) => void

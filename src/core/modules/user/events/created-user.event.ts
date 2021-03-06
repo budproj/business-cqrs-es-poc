@@ -1,9 +1,11 @@
 import { ID } from '@core/common/domain/value-objects/id.value-object'
+import { USER_AGGREGATE_NAME } from '@core/modules/user/constants'
 import { UserEntityProperties } from '@core/modules/user/domain/entities/user.entity'
 import { Action } from '@infrastructure/bus/action/action'
+import { EVENT_PREFIX } from '@infrastructure/bus/event/constants'
 import { Event } from '@infrastructure/bus/event/event'
 
-import { CREATED_USER_EVENT } from './constants'
+export const CREATED_USER_EVENT = `${EVENT_PREFIX}::${USER_AGGREGATE_NAME}::CREATED`
 
 interface CreatedUserEventProperties {
   payload: UserEntityProperties

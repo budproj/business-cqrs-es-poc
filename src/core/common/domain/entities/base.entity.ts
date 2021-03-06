@@ -2,6 +2,7 @@ import { DomainObject } from '@core/common/domain/base.object'
 import { DateValueObject } from '@core/common/domain/value-objects/date.value-object'
 import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-not-provided.exception'
+import { ArgumentOutOfRangeException } from '@core/common/exceptions/argument-out-of-range.exception'
 
 export interface EntityProperties {
   id?: ID
@@ -46,10 +47,18 @@ export abstract class Entity<T extends EntityProperties>
     return this.id.equals(candidate.id)
   }
 
+  protected validate(properties: T): void {
+    const maxProperties = 50
+
+    if (Object.keys(properties).length > maxProperties) {
+      throw new ArgumentOutOfRangeException(
+        `Entity properties should not have more then ${maxProperties.toString()} properties`,
+      )
+    }
+  }
+
   private throwIfEmpty(properties: T): void {
     if (this.isEmpty(properties))
       throw new ArgumentNotProvidedException('Entity properties cannot be empty')
   }
-
-  protected abstract validate(properties: T): void
 }

@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
+import { UserAccountProjection } from './projections/user-account.projection'
 import { CreateUserCommandHandler } from './use-cases/create-user/create-user.handler'
 
-const UseCaseCommandHandlers = [CreateUserCommandHandler]
+const UserUseCaseCommandHandlers = [CreateUserCommandHandler]
+const UserProjections = [UserAccountProjection]
 
 @Module({
   imports: [CqrsModule],
-  providers: UseCaseCommandHandlers,
+  providers: [...UserUseCaseCommandHandlers, ...UserProjections],
 })
 export class UserModule {}

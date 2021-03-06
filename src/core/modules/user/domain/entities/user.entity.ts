@@ -13,6 +13,4 @@ export class UserEntity extends Entity<UserEntityProperties> {
 
     this.firstName = properties.firstName
   }
-
-  protected validate(_properties: UserEntityProperties) {}
 }
