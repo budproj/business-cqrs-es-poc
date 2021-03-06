@@ -1,12 +1,11 @@
 import { Logger } from '@nestjs/common'
 
 import { ApplicationAggregate } from '@core/common/application/aggregates/base.aggregate'
-import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-not-provided.exception'
 import { Command } from '@infrastructure/bus/command/command'
 
+import { UserAggregateRoot } from './domain/user.aggregate-root'
 import { CreatedUserEvent } from './events/created-user/created-user.event'
-import { CreatedUserPayload } from './events/created-user/created-user.payload.dto'
 import { CreateUserRequest } from './requests/create-user.request'
 
 interface UserAggregateInterface {
@@ -29,13 +28,16 @@ export class UserAggregate extends ApplicationAggregate implements UserAggregate
       message: `New create user request received`,
     })
 
-    const aggregateID = ID.generate()
-    const eventPayload = new CreatedUserPayload(createUserRequest)
+    const marshalledRequest = createUserRequest.marshal()
+    const user = UserAggregateRoot.createUser(marshalledRequest)
+
     const event = new CreatedUserEvent({
-      aggregateID,
-      payload: eventPayload,
+      aggregateID: user.id,
+      payload: user,
       previousAction: this.command,
     })
+
+    console.log(event)
 
     this.dispatchEvent(event)
   }

@@ -12,6 +12,7 @@ interface ValueObjectInterface<T> {
 export abstract class ValueObject<T> extends DomainObject implements ValueObjectInterface<T> {
   constructor(protected readonly properties: ValueObjectProperties<T>) {
     super()
+
     this.throwIfEmpty(properties)
     this.validate(properties)
     this.properties = properties
@@ -21,11 +22,7 @@ export abstract class ValueObject<T> extends DomainObject implements ValueObject
     return candidate instanceof ValueObject
   }
 
-  public equals(candidate?: ValueObject<T>): boolean {
-    if (candidate === null || candidate === undefined) {
-      return false
-    }
-
+  public equals(candidate: ValueObject<T>): boolean {
     return JSON.stringify(this) === JSON.stringify(candidate)
   }
 
@@ -49,7 +46,7 @@ export abstract class ValueObject<T> extends DomainObject implements ValueObject
     const isPrimitiveAndEmpty = isEmpty && this.isDomainPrimitive(properties)
 
     if (isEmpty || isPrimitiveAndEmpty)
-      throw new ArgumentNotProvidedException('Property cannot be empty')
+      throw new ArgumentNotProvidedException('Value Object properties cannot be empty')
   }
 
   private isDomainPrimitive(object: unknown): object is DomainPrimitive {
