@@ -10,6 +10,10 @@ export interface EntityProperties {
 }
 
 export interface EntityInterface<T extends EntityProperties> {
+  id: ID
+  createdAt: DateValueObject
+  updatedAt: DateValueObject
+
   equals: (candidate: Entity<T>) => boolean
 }
 

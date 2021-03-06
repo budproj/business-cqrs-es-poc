@@ -14,9 +14,9 @@ interface ExceptionInterface {
 }
 
 export abstract class Exception extends Error implements ExceptionInterface {
-  abstract name: EXCEPTION
+  public abstract readonly name: EXCEPTION
 
-  constructor(readonly message: string, readonly metadata?: ObjectLiteral) {
+  constructor(public readonly message: string, public readonly metadata?: ObjectLiteral) {
     super(message)
     Error.captureStackTrace(this, this.constructor)
   }
