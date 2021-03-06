@@ -69,7 +69,7 @@ const DEFAULT_MIGRATIONS_DIR = 'src/infrastructure/orm/migrations'
 
 const CONVENTION_NAMING_FLAG = TYPEORM_CONVENTION_NAMING_FLAG?.toUpperCase() !== 'FALSE'
 
-export const typeORMConfig: TypeORMConfig = {
+export const typeormConfig: TypeORMConfig = {
   type: TYPEORM_CONNECTION ?? DEFAULT_CONNECTION,
 
   endpoint: {
@@ -104,5 +104,5 @@ export const typeORMConfig: TypeORMConfig = {
 }
 
 export function createTypeORMConfig(): TypeORMConfig {
-  return typeORMConfig
+  return typeormConfig
 }

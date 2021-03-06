@@ -22,14 +22,13 @@ export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEv
       message: `New ${CREATED_USER_EVENT} event received`,
     })
 
-    console.log(event)
-    //
-    // const projectionData = {
-    //   aggregateID: event.aggregateID,
-    //   ...event.payload,
-    // }
-    // const user = this.repository.create(projectionData)
-    //
-    // await this.repository.save(user)
+    const projectionData = {
+      aggregateID: event.aggregateID.value,
+      firstName: event.payload.firstName.value,
+      createdAt: event.payload.createdAt?.value,
+      updatedAt: event.payload.updatedAt?.value,
+    }
+
+    await this.repository.insert(projectionData)
   }
 }

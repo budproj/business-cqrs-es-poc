@@ -16,7 +16,7 @@
     "docker:up": "docker-compose up -d",
     "postinstall": "husky install",
     "typeorm": "run-s clean compile && npm run typeorm:run --",
-    "typeorm:run": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm",
+    "typeorm:run": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm --config src/infrastructure/orm/cli.config.ts",
     "migration:generate": "npm run typeorm migration:generate -- -n",
     "migration:run": "npm run typeorm migration:run",
     "migration:revert": "npm run typeorm migration:revert"

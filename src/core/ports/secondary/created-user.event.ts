@@ -14,6 +14,8 @@ interface CreatedUserEventProperties {
 }
 
 export class CreatedUserEvent extends Event<UserEntityProperties> {
+  public readonly payload!: UserEntityProperties
+
   constructor({ aggregateID, previousAction, payload }: CreatedUserEventProperties) {
     super({
       name: CREATED_USER_EVENT,

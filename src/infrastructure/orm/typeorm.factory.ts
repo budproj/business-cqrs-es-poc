@@ -8,9 +8,7 @@ import { TypeORMConfig } from '@config/typeorm'
 export class TypeORMFactory implements TypeOrmOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
 
-  public createTypeOrmOptions() {
-    const config = this.configService.get<TypeORMConfig>('typeORM')
-
+  static buildTypeORMConnectionConfig(config?: TypeORMConfig) {
     return {
       type: config?.type as any,
       host: config?.endpoint.host,
@@ -26,5 +24,12 @@ export class TypeORMFactory implements TypeOrmOptionsFactory {
         migrationsDir: config?.pattern.directory.migrations,
       },
     }
+  }
+
+  public createTypeOrmOptions() {
+    const config = this.configService.get<TypeORMConfig>('typeorm')
+    const connectionConfig = TypeORMFactory.buildTypeORMConnectionConfig(config)
+
+    return connectionConfig
   }
 }

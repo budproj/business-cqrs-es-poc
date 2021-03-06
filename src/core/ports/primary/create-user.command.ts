@@ -12,6 +12,8 @@ interface CreateUserCommandProperties {
 export const CREATE_USER_COMMAND = `${COMMAND_PREFIX}::${USER_AGGREGATE_NAME}::CREATE`
 
 export class CreateUserCommand extends Command<CreateUserRequest> {
+  public readonly payload!: CreateUserRequest
+
   constructor({ previousAction, payload }: CreateUserCommandProperties) {
     super({
       name: CREATE_USER_COMMAND,

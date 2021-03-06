@@ -1,4 +1,4 @@
-import { typeORMConfig, TypeORMConfig } from 'config/typeorm'
+import { typeormConfig, TypeORMConfig } from 'config/typeorm'
 
 import { graphqlConfig, GraphQLConfig } from './graphql'
 import { loggingConfig, LoggingConfig } from './logging'
@@ -8,14 +8,14 @@ export interface Config {
   server: ServerConfig
   logging: LoggingConfig
   graphql: GraphQLConfig
-  typeORM: TypeORMConfig
+  typeorm: TypeORMConfig
 }
 
 const Config: Config = {
   server: serverConfig,
   logging: loggingConfig,
   graphql: graphqlConfig,
-  typeORM: typeORMConfig,
+  typeorm: typeormConfig,
 }
 
 export function createConfig(): Config {
