@@ -24,6 +24,8 @@ export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEv
       message: `New ${CREATED_USER_EVENT} event received`,
     })
 
+    console.log(event)
+
     const projectionData = {
       aggregateID: event.aggregateID.value,
       firstName: event.payload.firstName.value,

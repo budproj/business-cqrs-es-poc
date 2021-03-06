@@ -6,6 +6,7 @@ import { EVENT_PREFIX } from '@infrastructure/bus/event/constants'
 import { Event } from '@infrastructure/bus/event/event'
 
 export const CREATED_USER_EVENT = `${EVENT_PREFIX}::${USER_AGGREGATE_NAME}::CREATED`
+const EVENT_VERSION = 1
 
 interface CreatedUserEventProperties {
   payload: UserEntityProperties
@@ -19,6 +20,7 @@ export class CreatedUserEvent extends Event<UserEntityProperties> {
   constructor({ aggregateID, previousAction, payload }: CreatedUserEventProperties) {
     super({
       name: CREATED_USER_EVENT,
+      version: EVENT_VERSION,
       aggregateID,
       previousAction,
       payload,

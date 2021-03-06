@@ -6,12 +6,38 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-      PGDATA: ${POSTGRES_DATA:-/data/postgres}
+      POSTGRES_DATA: ${POSTGRES_DATA:-/data/postgres}
     volumes:
-      - postgres:${POSTGRES_DATA:-/data/postgres}
+      - type: volume
+        source: postgres
+        target: ${POSTGRES_DATA:-/data/postgres}
     ports:
-      - 5432:5432
+      - 5432:${POSTGRES_PORT:-5432}
     restart: unless-stopped
+
+  eventstore:
+    image: eventstore/eventstore:21.2.0-buster-slim
+    environment:
+      EVENTSTORE_CLUSTER_SIZE: ${EVENTSTORE_CLUSTER_SIZE:-1}
+      EVENTSTORE_RUN_PROJECTIONS: ${EVENTSTORE_RUN_PROJECTIONS:-All}
+      EVENTSTORE_START_STANDARD_PROJECTIONS: ${EVENTSTORE_START_STANDARD_PROJECTIONS:-true}
+      EVENTSTORE_EXT_TCP_PORT: ${EVENTSTORE_EXT_TCP_PORT:-1113}
+      EVENTSTORE_EXT_HTTP_PORT: ${EVENTSTORE_EXT_HTTP_PORT:-2113}
+      EVENTSTORE_INSECURE: ${EVENTSTORE_INSECURE:-true}
+      EVENTSTORE_ENABLE_EXTERNAL_TCP: ${EVENTSTORE_ENABLE_EXTERNAL_TCP:-true}
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: ${EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP:-true}
+    ports:
+      - 1113:${EVENTSTORE_EXT_TCP_PORT:-1113}
+      - 2113:${EVENTSTORE_EXT_HTTP_PORT:-2113}
+    volumes:
+      - type: volume
+        source: eventstore-volume-data
+        target: /var/lib/eventstore
+      - type: volume
+        source: eventstore-volume-logs
+        target: /var/log/eventstore
 
 volumes:
   postgres:
+  eventstore-volume-data:
+  eventstore-volume-logs:

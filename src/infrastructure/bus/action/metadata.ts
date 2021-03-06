@@ -1,12 +1,12 @@
 import { ActionObject } from '@infrastructure/bus/action/object'
 
-interface ActionMetadataInterface {
+export interface ActionMetadataInterface {
   id: string
   name: string
   timestamp: number
 }
 
-interface ActionMetadataProperties {
+export interface ActionMetadataProperties {
   name: string
 }
 
