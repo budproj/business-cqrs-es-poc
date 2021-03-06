@@ -1,11 +1,11 @@
 import { Logger } from '@nestjs/common'
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs'
 
-import { CreatedUserEvent, CREATED_USER_EVENT } from '@core/modules/user/events/created-user.event'
+import { CreatedUserEvent, CREATED_USER_EVENT } from '@core/ports/secondary/created-user.event'
 
 @EventsHandler(CreatedUserEvent)
-export class UserAccountProjection implements IEventHandler<CreatedUserEvent> {
-  private readonly logger = new Logger(UserAccountProjection.name)
+export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEvent> {
+  private readonly logger = new Logger(UserAccountProjectionHandler.name)
 
   // Constructor(
   //   @InjectRepository(UserAccountEntity)

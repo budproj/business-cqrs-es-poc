@@ -1,10 +1,10 @@
 import { Logger } from '@nestjs/common'
 
 import { ApplicationAggregate } from '@core/common/application/aggregates/base.aggregate'
+import { CreatedUserEvent } from '@core/ports/secondary/created-user.event'
 import { Command } from '@infrastructure/bus/command/command'
 
 import { UserEntity } from './domain/entities/user.entity'
-import { CreatedUserEvent } from './events/created-user.event'
 
 interface UserAggregateInterface {
   create: (user: UserEntity) => void
