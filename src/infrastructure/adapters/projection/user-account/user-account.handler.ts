@@ -1,16 +1,20 @@
 import { Logger } from '@nestjs/common'
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
 import { CreatedUserEvent, CREATED_USER_EVENT } from '@core/ports/secondary/created-user.event'
+
+import { UserAccountORMEntity } from './user-account.orm-entity'
 
 @EventsHandler(CreatedUserEvent)
 export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEvent> {
   private readonly logger = new Logger(UserAccountProjectionHandler.name)
 
-  // Constructor(
-  //   @InjectRepository(UserAccountEntity)
-  //   private readonly repository: MongoRepository<UserAccountEntity>,
-  // ) {}
+  constructor(
+    @InjectRepository(UserAccountORMEntity)
+    private readonly repository: Repository<UserAccountORMEntity>,
+  ) {}
 
   public async handle(event: CreatedUserEvent) {
     this.logger.log({

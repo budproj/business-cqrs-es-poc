@@ -10,6 +10,14 @@
     "max-params": "off",
     "import/no-unresolved": "error"
   },
+  "overrides": [
+    {
+      "files": ["src/infrastructure/orm/migrations/*"],
+      "rules": {
+        "unicorn/filename-case": "off"
+      }
+    }
+  ],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]

@@ -18,8 +18,13 @@ export class TypeORMFactory implements TypeOrmOptionsFactory {
       database: config?.endpoint.database,
       username: config?.authentication.user,
       password: config?.authentication.password,
+      namingStrategy: config?.convention.naming,
       logging: config?.logging.enabled,
       entities: config?.pattern.file.entities,
+      migrations: config?.pattern.file.migrations,
+      cli: {
+        migrationsDir: config?.pattern.directory.migrations,
+      },
     }
   }
 }

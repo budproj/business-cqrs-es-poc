@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
-import { UserAccountProjectionHandler } from './user-account/user-account.handler'
-
-const ProjectionHandlers = [UserAccountProjectionHandler]
+import { UserAccountProjectionModule } from './user-account/user-account.module'
 
 @Module({
-  imports: [CqrsModule],
-  providers: ProjectionHandlers,
+  imports: [CqrsModule, UserAccountProjectionModule],
 })
 export class ProjectionAdapterModule {}

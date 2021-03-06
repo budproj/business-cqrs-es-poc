@@ -1,6 +1,6 @@
 import { CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Column } from 'typeorm'
 
-export abstract class BaseProjectionEntity {
+export abstract class ProjectionEntity {
   @PrimaryGeneratedColumn('uuid')
   public readonly id!: string
 
