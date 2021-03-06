@@ -8,6 +8,15 @@ export abstract class EntityObjectGraphQLResponse {
   public readonly id!: string
 }
 
+@InterfaceType('Projection')
+export abstract class ProjectionObjectGraphQLResponse {
+  @Field(() => ID, { description: 'The ID of this projection' })
+  public readonly id!: string
+
+  @Field(() => ID, { description: 'The aggregate ID of this projection' })
+  public readonly aggregateID!: string
+}
+
 @InterfaceType('MutationResult')
 export abstract class MutationResultGraphQLResponse {
   @Field(() => ID, {

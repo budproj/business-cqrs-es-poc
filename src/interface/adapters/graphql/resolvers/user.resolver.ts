@@ -1,11 +1,14 @@
 import { Logger } from '@nestjs/common'
-import { CommandBus } from '@nestjs/cqrs'
-import { Args, ID, Resolver, Query, Mutation } from '@nestjs/graphql'
+import { CommandBus, QueryBus } from '@nestjs/cqrs'
+import { Args, ID, Resolver, Query, Mutation, ResolveField, Parent } from '@nestjs/graphql'
 
 import { CreateUserRequest } from '@core/modules/user/requests/create-user.request'
+import { ReadUserAccountRequest } from '@core/modules/user/requests/read-user-account.request'
 import { CreateUserCommand } from '@core/ports/primary/create-user.command'
+import { UserAccountQuery } from '@core/ports/primary/user-account.query'
 import { UserInputGraphQLRequest } from '@interface/adapters/graphql/requests/user.request'
 import {
+  UserAccountObjectGraphQLResponse,
   UserMutationResultGraphQLResponse,
   UserObjectGraphQLResponse,
 } from '@interface/adapters/graphql/responses/user.response'
@@ -14,7 +17,7 @@ import {
 export class UserGraphQLResolver {
   private readonly logger = new Logger(UserGraphQLResolver.name)
 
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   @Query(() => UserObjectGraphQLResponse, { name: 'user' })
   protected async getUser(
@@ -23,12 +26,12 @@ export class UserGraphQLResolver {
   ) {
     this.logger.log({
       userID,
-      message: 'Querying user account',
+      message: 'Querying user data',
     })
 
-    console.log(userID)
-
-    return {}
+    return {
+      id: userID,
+    }
   }
 
   @Mutation(() => UserMutationResultGraphQLResponse, { name: 'createUser' })
@@ -50,5 +53,23 @@ export class UserGraphQLResolver {
     const response = new UserMutationResultGraphQLResponse(command)
 
     return response
+  }
+
+  @ResolveField(() => UserAccountObjectGraphQLResponse, { name: 'account' })
+  protected async getUserAccount(@Parent() user: UserObjectGraphQLResponse) {
+    this.logger.log({
+      user,
+      message: 'Querying user account data',
+    })
+
+    const selector = { aggregateID: user.id }
+
+    const readUserAccountRequest = new ReadUserAccountRequest(selector)
+    const queryProperties = { payload: readUserAccountRequest }
+    const query = new UserAccountQuery(queryProperties)
+
+    const queryResult = await this.queryBus.execute(query)
+
+    return queryResult
   }
 }
