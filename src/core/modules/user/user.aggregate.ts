@@ -7,10 +7,10 @@ import { Command } from '@infrastructure/bus/command/command'
 
 import { CreatedUserEvent } from './events/created-user/created-user.event'
 import { CreatedUserPayload } from './events/created-user/created-user.payload.dto'
-import { CreateUserApplicationRequest } from './requests/create-user.request'
+import { CreateUserRequest } from './requests/create-user.request'
 
 interface UserAggregateInterface {
-  create: (createUserRequest: CreateUserApplicationRequest) => void
+  create: (createUserRequest: CreateUserRequest) => void
 }
 
 export class UserAggregate extends ApplicationAggregate implements UserAggregateInterface {
@@ -20,7 +20,7 @@ export class UserAggregate extends ApplicationAggregate implements UserAggregate
     super()
   }
 
-  public create(createUserRequest?: CreateUserApplicationRequest) {
+  public create(createUserRequest?: CreateUserRequest) {
     if (!createUserRequest)
       throw new ArgumentNotProvidedException('You must pass user data to create a new user')
 

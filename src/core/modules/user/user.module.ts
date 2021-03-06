@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common'
+import { CqrsModule } from '@nestjs/cqrs'
 
-import { UserApplicationModule } from './application/user-application.module'
+import { CreateUserCommandHandler } from './use-cases/create-user/create-user.handler'
+
+const UseCaseCommandHandlers = [CreateUserCommandHandler]
 
 @Module({
-  imports: [UserApplicationModule],
-  exports: [UserApplicationModule],
+  imports: [CqrsModule],
+  providers: UseCaseCommandHandlers,
 })
 export class UserModule {}

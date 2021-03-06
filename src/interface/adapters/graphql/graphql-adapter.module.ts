@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { CqrsModule } from '@nestjs/cqrs'
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql'
 
 import { CoreModule } from '@core/core.module'
@@ -13,6 +14,7 @@ import { UserGraphQLResolver } from './resolvers/user.resolver'
       imports: [ConfigModule],
       useClass: GraphQLAdapterFactory,
     }),
+    CqrsModule,
     CoreModule,
   ],
   providers: [UserGraphQLResolver],

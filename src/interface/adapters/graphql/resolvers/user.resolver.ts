@@ -1,8 +1,9 @@
 import { Logger } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
 import { Args, ID, Resolver, Query, Mutation } from '@nestjs/graphql'
 
-import { CreateUserApplicationRequest } from '@core/modules/user/application/requests/create-user.request'
-import { UserApplicationService } from '@core/modules/user/application/user-application.service'
+import { CreateUserRequest } from '@core/modules/user/requests/create-user.request'
+import { CreateUserCommand } from '@core/ports/primary/create-user.command'
 import { UserInputGraphQLRequest } from '@interface/adapters/graphql/requests/user.request'
 import {
   UserMutationResultGraphQLResponse,
@@ -13,7 +14,7 @@ import {
 export class UserGraphQLResolver {
   private readonly logger = new Logger(UserGraphQLResolver.name)
 
-  constructor(private readonly userService: UserApplicationService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @Query(() => UserObjectGraphQLResponse, { name: 'user' })
   protected async getUser(
@@ -40,10 +41,13 @@ export class UserGraphQLResolver {
       message: 'Creating a new user',
     })
 
-    const createUserRequest = new CreateUserApplicationRequest(userInputRequest)
-    const commandResult = await this.userService.createUser(createUserRequest)
+    const createUserRequest = new CreateUserRequest(userInputRequest)
+    const commandProperties = { payload: createUserRequest }
+    const command = new CreateUserCommand(commandProperties)
 
-    const response = new UserMutationResultGraphQLResponse(commandResult)
+    await this.commandBus.execute(command)
+
+    const response = new UserMutationResultGraphQLResponse(command)
 
     return response
   }
