@@ -21,10 +21,10 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
       message: `New ${CREATE_USER_COMMAND} command received`,
     })
 
-    const marshalledCommandPayload = command.payload.marshal()
-    const user = UserAggregateRoot.createUser(marshalledCommandPayload)
+    const marshalledCommandData = command.data.marshal()
+    const user = UserAggregateRoot.createUser(marshalledCommandData)
 
-    const userAggregateInstance = new UserAggregate(command, this.eventStorePort)
+    const userAggregateInstance = new UserAggregate(user, command, this.eventStorePort)
     const userAggregate = this.eventPublisher.mergeObjectContext(userAggregateInstance)
 
     await userAggregate.create(user)

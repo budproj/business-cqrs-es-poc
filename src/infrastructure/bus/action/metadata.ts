@@ -1,24 +1,30 @@
-import { ActionObject } from '@infrastructure/bus/action/object'
+import { Action } from './action'
+import { ActionObject } from './object'
+import { ActionTracing } from './tracing'
 
 export interface ActionMetadataInterface {
   id: string
-  name: string
+  type: string
   timestamp: number
 }
 
 export interface ActionMetadataProperties {
-  name: string
+  type: string
+  previousAction?: Action
 }
 
 export class ActionMetadata extends ActionObject implements ActionMetadataInterface {
   public readonly id: string
-  public readonly name: string
+  public readonly type: string
   public readonly timestamp: number
+  public readonly tracing: ActionTracing
 
-  constructor({ name }: ActionMetadataProperties) {
+  constructor({ type, previousAction }: ActionMetadataProperties) {
     super()
+
     this.id = this.generateID()
     this.timestamp = this.generateTimestamp()
-    this.name = name
+    this.type = type
+    this.tracing = new ActionTracing(previousAction)
   }
 }

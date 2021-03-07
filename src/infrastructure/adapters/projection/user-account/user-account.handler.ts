@@ -25,10 +25,10 @@ export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEv
     })
 
     const projectionData = {
-      aggregateID: event.aggregateID.value,
-      firstName: event.payload.firstName.value,
-      createdAt: event.payload.createdAt?.value,
-      updatedAt: event.payload.updatedAt?.value,
+      aggregateID: event.metadata.aggregateID.value,
+      firstName: event.data.firstName.value,
+      createdAt: event.data.createdAt?.value,
+      updatedAt: event.data.updatedAt?.value,
     }
 
     await this.repository.insert(projectionData)
@@ -40,7 +40,7 @@ export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEv
       message: `New ${USER_ACCOUNT_QUERY} query received`,
     })
 
-    const selector = query.payload.unmarshal()
+    const selector = query.data.unmarshal()
     const userAccount = await this.repository.findOne(selector)
 
     return userAccount

@@ -1,8 +1,7 @@
 import { without } from 'lodash'
 
-import { ActionObject } from '@infrastructure/bus/action/object'
-
 import { Action } from './action'
+import { ActionObject } from './object'
 
 interface ActionTracingInterface {
   correlationID: string
@@ -15,12 +14,12 @@ export class ActionTracing extends ActionObject implements ActionTracingInterfac
 
   constructor(protected readonly previousAction?: Action) {
     super()
-    this.correlationID = previousAction?.tracing.correlationID ?? this.generateID()
+    this.correlationID = previousAction?.metadata.tracing.correlationID ?? this.generateID()
     this.stack = this.appendToPreviousStack(previousAction)
   }
 
   private appendToPreviousStack(previousAction?: Action): Action[] {
-    const previousActionStack = previousAction?.tracing.stack ?? []
+    const previousActionStack = previousAction?.metadata.tracing.stack ?? []
     // eslint-disable-next-line unicorn/no-useless-undefined
     const stack = without([previousAction, ...previousActionStack], undefined) as Action[]
 

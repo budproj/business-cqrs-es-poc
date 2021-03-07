@@ -1,12 +1,12 @@
 import { IsUUID } from 'class-validator'
 
-import { QueryPayload } from '@infrastructure/bus/query/payload'
+import { QueryData } from '@infrastructure/bus/query/data'
 
 interface ReadUserAccountRequestProperties {
   aggregateID: string
 }
 
-export class ReadUserAccountRequest extends QueryPayload {
+export class ReadUserAccountRequest extends QueryData {
   @IsUUID('4')
   public readonly aggregateID: string
 

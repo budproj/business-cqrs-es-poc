@@ -45,7 +45,7 @@ export class UserGraphQLResolver {
     })
 
     const createUserRequest = new CreateUserRequest(userInputRequest)
-    const commandProperties = { payload: createUserRequest }
+    const commandProperties = { data: createUserRequest }
     const command = new CreateUserCommand(commandProperties)
 
     await this.commandBus.execute(command)
@@ -65,7 +65,7 @@ export class UserGraphQLResolver {
     const selector = { aggregateID: user.id }
 
     const readUserAccountRequest = new ReadUserAccountRequest(selector)
-    const queryProperties = { payload: readUserAccountRequest }
+    const queryProperties = { data: readUserAccountRequest }
     const query = new UserAccountQuery(queryProperties)
 
     const queryResult = await this.queryBus.execute(query)

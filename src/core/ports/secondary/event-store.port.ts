@@ -21,7 +21,8 @@ export class EventStorePort implements EventStorePortInterface {
     const unmarshalledEvent = event.unmarshal()
     const normalizedEvent = {
       id: event.metadata.id,
-      type: event.metadata.name,
+      type: event.metadata.type,
+      metadata: event.metadata,
       data: unmarshalledEvent,
     }
 

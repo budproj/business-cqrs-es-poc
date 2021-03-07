@@ -1,3 +1,3 @@
 import { Action } from '@infrastructure/bus/action/action'
 
-export abstract class Command<P = any> extends Action<P> {}
+export abstract class Command<D = any> extends Action<D> {}

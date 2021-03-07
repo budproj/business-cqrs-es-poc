@@ -1,28 +1,24 @@
 import { ActionMetadata } from './metadata'
-import { ActionTracing } from './tracing'
 
-export interface ActionInterface<P> {
+export interface ActionInterface<D> {
   metadata: ActionMetadata
-  tracing: ActionTracing
-  payload?: P
+  data?: D
 }
 
-export interface ActionProperties<P> {
-  name: string
+export interface ActionProperties<D> {
+  type: string
   previousAction?: Action
-  payload?: P
+  data?: D
 }
 
 export type ActionConstructor = new (..._arguments: any[]) => Action
 
-export abstract class Action<P = any> implements ActionInterface<P> {
+export abstract class Action<D = any> implements ActionInterface<D> {
   public readonly metadata: ActionMetadata
-  public readonly tracing: ActionTracing
-  public readonly payload?: P
+  public readonly data?: D
 
-  constructor({ name, previousAction, payload }: ActionProperties<P>) {
-    this.metadata = new ActionMetadata({ name })
-    this.tracing = new ActionTracing(previousAction)
-    this.payload = payload
+  constructor({ type, previousAction, data }: ActionProperties<D>) {
+    this.metadata = new ActionMetadata({ type, previousAction })
+    this.data = data
   }
 }

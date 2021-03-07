@@ -1,24 +1,22 @@
-import { USER_AGGREGATE_NAME } from '@core/modules/user/constants'
 import { ReadUserAccountRequest } from '@core/modules/user/requests/read-user-account.request'
 import { Action } from '@infrastructure/bus/action/action'
-import { QUERY_PREFIX } from '@infrastructure/bus/query/constants'
 import { Query } from '@infrastructure/bus/query/query'
 
 interface UserAccountQueryProperties {
-  payload: ReadUserAccountRequest
+  data: ReadUserAccountRequest
   previousAction?: Action
 }
 
-export const USER_ACCOUNT_QUERY = `${QUERY_PREFIX}::${USER_AGGREGATE_NAME}::ACCOUNT`
+export const USER_ACCOUNT_QUERY = 'UserAccountQuery'
 
 export class UserAccountQuery extends Query<ReadUserAccountRequest> {
-  public readonly payload!: ReadUserAccountRequest
+  public readonly data!: ReadUserAccountRequest
 
-  constructor({ previousAction, payload }: UserAccountQueryProperties) {
+  constructor({ previousAction, data }: UserAccountQueryProperties) {
     super({
-      name: USER_ACCOUNT_QUERY,
+      type: USER_ACCOUNT_QUERY,
       previousAction,
-      payload,
+      data,
     })
   }
 }

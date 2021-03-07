@@ -25,7 +25,7 @@ export abstract class MutationResultGraphQLResponse {
   })
   public readonly correlationID!: string
 
-  constructor({ tracing }: Action) {
-    this.correlationID = tracing.correlationID
+  constructor({ metadata }: Action) {
+    this.correlationID = metadata.tracing.correlationID
   }
 }

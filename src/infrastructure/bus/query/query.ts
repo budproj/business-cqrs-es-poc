@@ -1,7 +1,7 @@
 import { Action } from '@infrastructure/bus/action/action'
 
-import { QueryPayload } from './payload'
+import { QueryData } from './data'
 
-export abstract class Query<P extends QueryPayload = any> extends Action {
-  public readonly payload!: QueryPayload<P>
+export abstract class Query<D extends QueryData = any> extends Action {
+  public readonly data!: QueryData<D>
 }

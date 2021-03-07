@@ -1,29 +1,27 @@
 import { ID } from '@core/common/domain/value-objects/id.value-object'
-import { USER_AGGREGATE_NAME } from '@core/modules/user/constants'
 import { UserEntityProperties } from '@core/modules/user/domain/entities/user.entity'
 import { Action } from '@infrastructure/bus/action/action'
-import { EVENT_PREFIX } from '@infrastructure/bus/event/constants'
 import { Event } from '@infrastructure/bus/event/event'
 
-export const CREATED_USER_EVENT = `${EVENT_PREFIX}::${USER_AGGREGATE_NAME}::CREATED`
+export const CREATED_USER_EVENT = 'CreatedUser'
 const EVENT_VERSION = 1
 
 interface CreatedUserEventProperties {
-  payload: UserEntityProperties
+  data: UserEntityProperties
   previousAction: Action
   aggregateID: ID
 }
 
 export class CreatedUserEvent extends Event<UserEntityProperties> {
-  public readonly payload!: UserEntityProperties
+  public readonly data!: UserEntityProperties
 
-  constructor({ aggregateID, previousAction, payload }: CreatedUserEventProperties) {
+  constructor({ aggregateID, previousAction, data }: CreatedUserEventProperties) {
     super({
-      name: CREATED_USER_EVENT,
+      type: CREATED_USER_EVENT,
       version: EVENT_VERSION,
       aggregateID,
       previousAction,
-      payload,
+      data,
     })
   }
 }
