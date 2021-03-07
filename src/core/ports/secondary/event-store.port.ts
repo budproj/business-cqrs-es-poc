@@ -18,13 +18,11 @@ export class EventStorePort implements EventStorePortInterface {
   }
 
   public marshalEvent(event: Event) {
+    const unmarshalledEvent = event.unmarshal()
     const normalizedEvent = {
-      ...event.metadata,
-      aggregateID: event.aggregateID,
+      id: event.metadata.id,
       type: event.metadata.name,
-      correlationID: event.tracing.correlationID,
-      tracing: event.tracing,
-      data: event.payload,
+      data: unmarshalledEvent,
     }
 
     return jsonEvent(normalizedEvent)

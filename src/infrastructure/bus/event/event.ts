@@ -1,3 +1,5 @@
+import { ObjectLiteral } from 'typeorm'
+
 import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { Action, ActionInterface, ActionProperties } from '@infrastructure/bus/action/action'
 import { ActionTracing } from '@infrastructure/bus/action/tracing'
@@ -6,6 +8,8 @@ import { EventMetadata } from './metadata'
 
 interface EventInterface<P> extends ActionInterface<P> {
   aggregateID: ID
+
+  unmarshal: () => ObjectLiteral
 }
 
 interface EventProperties<P> extends ActionProperties<P> {
@@ -23,5 +27,9 @@ export abstract class Event<P = any> extends Action<P> implements EventInterface
     super({ name, ...rest })
     this.aggregateID = aggregateID
     this.metadata = new EventMetadata({ name, version, ...rest })
+  }
+
+  public unmarshal() {
+    return {}
   }
 }
