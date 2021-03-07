@@ -1,14 +1,3 @@
-import { Dictionary, fromPairs } from 'lodash'
+import { ActionData } from '@infrastructure/bus/action/data'
 
-interface QueryDataInterface<T> {
-  unmarshal: () => Dictionary<T>
-}
-
-export abstract class QueryData<T = any> implements QueryDataInterface<T> {
-  public unmarshal() {
-    const entries = Object.entries(this)
-    const objectLiteral = fromPairs<T>(entries)
-
-    return objectLiteral
-  }
-}
+export abstract class QueryData<D = any> extends ActionData<D> {}

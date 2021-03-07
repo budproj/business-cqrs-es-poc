@@ -5,7 +5,7 @@ import {
   ApplicationAggregateInterface,
 } from '@core/common/application/aggregates/base.aggregate'
 import { USER_AGGREGATE_NAME } from '@core/modules/user/constants'
-import { CreatedUserEvent } from '@core/ports/secondary/created-user.event'
+import { CreatedUserEvent, CreatedUserEventData } from '@core/ports/secondary/created-user.event'
 import { EventStorePort } from '@core/ports/secondary/event-store.port'
 import { Command } from '@infrastructure/bus/command/command'
 
@@ -35,9 +35,10 @@ export class UserAggregate
       message: `New create user request received`,
     })
 
+    const eventData = new CreatedUserEventData(user)
     const event = new CreatedUserEvent({
       aggregateID: user.id,
-      data: user,
+      data: eventData,
       previousAction: this.command,
     })
 

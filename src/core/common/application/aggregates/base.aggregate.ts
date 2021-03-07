@@ -60,7 +60,6 @@ export abstract class ApplicationAggregate<P = any>
     const streamName = [this.aggregateName, AGGREGATE_SEPARATOR, this.aggregateID.value].join('')
     const marshalledEvent = this.eventStorePort.marshalEvent(event)
 
-    console.log(marshalledEvent)
-    // Await this.eventStorePort.publish(marshalledEvent, streamName)
+    await this.eventStorePort.publish(marshalledEvent, streamName)
   }
 }

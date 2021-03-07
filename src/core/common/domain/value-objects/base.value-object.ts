@@ -5,8 +5,10 @@ import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-n
 type ValueObjectProperties<T> = T extends Primitives | Date ? DomainPrimitive<T> : T
 
 interface ValueObjectInterface<T> {
-  equals: (candidate: ValueObject<T>) => boolean
   value: T
+
+  equals: (candidate: ValueObject<T>) => boolean
+  unmarshal: () => T
 }
 
 export abstract class ValueObject<T> extends DomainObject implements ValueObjectInterface<T> {
@@ -24,6 +26,10 @@ export abstract class ValueObject<T> extends DomainObject implements ValueObject
 
   public equals(candidate: ValueObject<T>): boolean {
     return JSON.stringify(this) === JSON.stringify(candidate)
+  }
+
+  public unmarshal() {
+    return this.value
   }
 
   public abstract get value(): T

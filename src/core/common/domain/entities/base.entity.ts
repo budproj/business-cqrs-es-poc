@@ -16,6 +16,7 @@ export interface EntityInterface<T extends EntityProperties> {
   updatedAt: DateValueObject
 
   equals: (candidate: Entity<T>) => boolean
+  unmarshal: () => any
 }
 
 export abstract class Entity<T extends EntityProperties>
@@ -61,4 +62,6 @@ export abstract class Entity<T extends EntityProperties>
     if (this.isEmpty(properties))
       throw new ArgumentNotProvidedException('Entity properties cannot be empty')
   }
+
+  public abstract unmarshal(): any
 }

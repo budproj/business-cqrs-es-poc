@@ -6,7 +6,7 @@ interface ReadUserAccountRequestProperties {
   aggregateID: string
 }
 
-export class ReadUserAccountRequest extends QueryData {
+export class ReadUserAccountRequest extends QueryData<ReadUserAccountRequestProperties> {
   @IsUUID('4')
   public readonly aggregateID: string
 
