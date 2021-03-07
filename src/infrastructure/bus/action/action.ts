@@ -1,8 +1,10 @@
-import { ActionMetadata } from './metadata'
+import { ActionMetadata, UnmarshalledActionMetadata } from './metadata'
 
 export interface ActionInterface<D> {
   metadata: ActionMetadata
   data?: D
+
+  unmarshal: () => UnmarshalledAction
 }
 
 export interface ActionProperties<D> {
@@ -11,7 +13,10 @@ export interface ActionProperties<D> {
   data?: D
 }
 
-export type ActionConstructor = new (..._arguments: any[]) => Action
+export interface UnmarshalledAction<D = any> {
+  metadata: UnmarshalledActionMetadata
+  data?: D
+}
 
 export abstract class Action<D = any> implements ActionInterface<D> {
   public readonly metadata: ActionMetadata
@@ -20,5 +25,14 @@ export abstract class Action<D = any> implements ActionInterface<D> {
   constructor({ type, previousAction, data }: ActionProperties<D>) {
     this.metadata = new ActionMetadata({ type, previousAction })
     this.data = data
+  }
+
+  public unmarshal() {
+    const unmarshalledAction: UnmarshalledAction = {
+      metadata: this.metadata.unmarshal(),
+      data: this.data,
+    }
+
+    return unmarshalledAction
   }
 }

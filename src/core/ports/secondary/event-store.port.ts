@@ -19,13 +19,13 @@ export class EventStorePort implements EventStorePortInterface {
 
   public marshalEvent(event: Event) {
     const unmarshalledEvent = event.unmarshal()
-    const normalizedEvent = {
-      id: event.metadata.id,
-      type: event.metadata.type,
-      metadata: event.metadata,
-      data: unmarshalledEvent,
+    const jsonEventPayload = {
+      id: unmarshalledEvent.metadata.id,
+      type: unmarshalledEvent.metadata.type,
+      metadata: unmarshalledEvent.metadata,
+      data: unmarshalledEvent.data,
     }
 
-    return jsonEvent(normalizedEvent)
+    return jsonEvent(jsonEventPayload)
   }
 }

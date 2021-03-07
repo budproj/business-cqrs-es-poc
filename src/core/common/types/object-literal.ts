@@ -1,1 +1,1 @@
-export type ObjectLiteral = Record<string, unknown>
+export type ObjectLiteral<K extends string = string> = Record<K, unknown>
