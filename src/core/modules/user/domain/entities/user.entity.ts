@@ -5,11 +5,11 @@ interface UserEntityInterface extends EntityInterface<UserEntityProperties> {
   unmarshal: () => UnmarshalledUserEntity
 }
 
-export interface UserEntityProperties extends EntityProperties {
+export type UserEntityProperties = {
   firstName: UserFirstName
-}
+} & EntityProperties
 
-export interface UnmarshalledUserEntity {
+export type UnmarshalledUserEntity = {
   id: string
   firstName: string
   createdAt: Date

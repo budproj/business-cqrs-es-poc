@@ -1,6 +1,5 @@
 import { Action } from '@infrastructure/bus/action/action'
-import { ObjectLiteral } from 'typeorm'
 
-export abstract class Query<D extends ObjectLiteral = ObjectLiteral> extends Action {
+export abstract class Query<D = unknown> extends Action {
   public readonly data!: D
 }

@@ -1,19 +1,20 @@
+import { JSONType } from '@eventstore/db-client'
+
 import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { Action, ActionInterface, ActionProperties } from '@infrastructure/bus/action/action'
-import { ObjectLiteral } from '@core/common/types/object-literal.type'
 
 import { EventMetadata } from './metadata'
 
-interface EventInterface<D extends ObjectLiteral> extends ActionInterface<D> {
+interface EventInterface<D> extends ActionInterface<D> {
   data: D
 }
 
-interface EventProperties<D extends ObjectLiteral> extends ActionProperties<D> {
+interface EventProperties<D> extends ActionProperties<D> {
   aggregateID: ID
   version: number
 }
 
-export abstract class Event<D extends ObjectLiteral = ObjectLiteral>
+export abstract class Event<D extends JSONType = JSONType>
   extends Action<D>
   implements EventInterface<D> {
   public readonly metadata: EventMetadata

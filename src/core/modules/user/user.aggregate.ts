@@ -5,7 +5,7 @@ import {
   ApplicationAggregateInterface,
 } from '@core/common/application/aggregates/base.aggregate'
 import { USER_AGGREGATE_NAME } from '@core/modules/user/constants'
-import { CreatedUserEvent } from '@core/ports/secondary/created-user.event'
+import { CreatedUserEventPort } from '@core/ports/secondary/created-user-event.port'
 
 import { UserEntity } from './domain/entities/user.entity'
 
@@ -25,8 +25,8 @@ export class UserApplicationAggregate
       message: `New create user request received`,
     })
 
-    const eventData = new UserEntity(user)
-    const event = new CreatedUserEvent({
+    const eventData = user.unmarshal()
+    const event = new CreatedUserEventPort({
       aggregateID: user.id,
       data: eventData,
       previousAction: this.command,

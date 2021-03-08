@@ -2,10 +2,9 @@ import { Logger } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, ID, Resolver, Query, Mutation, ResolveField, Parent } from '@nestjs/graphql'
 
-import { CreateUserRequest } from '@core/modules/user/requests/create-user.request'
 import { ReadUserAccountRequest } from '@core/modules/user/requests/read-user-account.request'
-import { CreateUserCommand } from '@core/ports/primary/create-user.command'
-import { UserAccountQuery } from '@core/ports/primary/user-account.query'
+import { CreateUserCommandPort } from '@core/ports/primary/create-user-command.port'
+import { UserAccountQueryPort } from '@core/ports/primary/user-account-query.port'
 import { UserInputGraphQLRequest } from '@interface/adapters/graphql/requests/user.request'
 import {
   UserAccountObjectGraphQLResponse,
@@ -44,9 +43,8 @@ export class UserGraphQLResolver {
       message: 'Creating a new user',
     })
 
-    const createUserRequest = new CreateUserRequest(userInputRequest)
-    const commandProperties = { data: createUserRequest }
-    const command = new CreateUserCommand(commandProperties)
+    const commandProperties = { data: userInputRequest }
+    const command = new CreateUserCommandPort(commandProperties)
 
     await this.commandBus.execute(command)
 
@@ -66,7 +64,7 @@ export class UserGraphQLResolver {
 
     const readUserAccountRequest = new ReadUserAccountRequest(selector)
     const queryProperties = { data: readUserAccountRequest }
-    const query = new UserAccountQuery(queryProperties)
+    const query = new UserAccountQueryPort(queryProperties)
 
     const queryResult = await this.queryBus.execute(query)
 

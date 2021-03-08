@@ -1,19 +1,17 @@
-import { ObjectLiteral } from '@core/common/types/object-literal.type'
 import { ActionMetadata } from './metadata'
 
-export interface ActionInterface<D extends ObjectLiteral> {
+export interface ActionInterface<D> {
   metadata: ActionMetadata
   data?: D
 }
 
-export interface ActionProperties<D extends ObjectLiteral> {
+export interface ActionProperties<D> {
   type: string
   previousAction?: Action
   data?: D
 }
 
-export abstract class Action<D extends ObjectLiteral = ObjectLiteral>
-  implements ActionInterface<D> {
+export abstract class Action<D = unknown> implements ActionInterface<D> {
   public readonly metadata: ActionMetadata
   public readonly data?: D
 

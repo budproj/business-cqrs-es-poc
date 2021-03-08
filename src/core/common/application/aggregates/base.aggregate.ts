@@ -6,7 +6,7 @@ import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-not-provided.exception'
 import { EventStorePort } from '@core/ports/secondary/event-store.port'
 import { Command } from '@infrastructure/bus/command/command'
-import { Event, UnmarshalledEvent } from '@infrastructure/bus/event/event'
+import { Event } from '@infrastructure/bus/event/event'
 
 const AGGREGATE_SEPARATOR = '#'
 
@@ -40,13 +40,11 @@ export abstract class ApplicationAggregate
       message: 'Publishing event',
     })
 
-    const unmarshalledEvent = event.unmarshal()
-
-    await this.persistEvent(unmarshalledEvent)
+    await this.persistEvent(event)
     await this.eventBus.publish(event)
   }
 
-  private async persistEvent(event: UnmarshalledEvent): Promise<void> {
+  private async persistEvent(event: Event): Promise<void> {
     if (!this.aggregateID)
       throw new ArgumentNotProvidedException(
         'You must define an aggregate ID before publishing an event',

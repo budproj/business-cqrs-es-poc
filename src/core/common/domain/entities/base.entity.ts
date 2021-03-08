@@ -4,7 +4,7 @@ import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-not-provided.exception'
 import { ArgumentOutOfRangeException } from '@core/common/exceptions/argument-out-of-range.exception'
 
-export interface EntityProperties {
+export type EntityProperties = {
   id?: ID
   createdAt?: DateValueObject
   updatedAt?: DateValueObject

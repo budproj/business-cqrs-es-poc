@@ -2,25 +2,29 @@ import { Logger } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 
 import { UserAggregateRoot } from '@core/modules/user/domain/user.aggregate-root'
+import { CreateUserRequest } from '@core/modules/user/requests/create-user.request'
 import { UserApplicationAggregateFactory } from '@core/modules/user/user-aggregate.factory'
-import { CreateUserCommand, CREATE_USER_COMMAND } from '@core/ports/primary/create-user.command'
+import {
+  CreateUserCommandPort,
+  CREATE_USER_COMMAND,
+} from '@core/ports/primary/create-user-command.port'
 
-@CommandHandler(CreateUserCommand)
-export class CreateUserCommandHandler implements ICommandHandler<CreateUserCommand> {
-  private readonly logger = new Logger(CreateUserCommandHandler.name)
+@CommandHandler(CreateUserCommandPort)
+export class CreateUserCommandPortHandler implements ICommandHandler<CreateUserCommandPort> {
+  private readonly logger = new Logger(CreateUserCommandPortHandler.name)
 
   constructor(
     protected readonly userApplicationAggregateFactory: UserApplicationAggregateFactory,
   ) {}
 
-  public async execute(command: CreateUserCommand) {
+  public async execute(command: CreateUserCommandPort) {
     this.logger.log({
       command,
       message: `New ${CREATE_USER_COMMAND} command received`,
     })
 
-    const marshalledCommandData = command.data.marshal()
-    const user = UserAggregateRoot.createUser(marshalledCommandData)
+    const createUserRequest = new CreateUserRequest(command.data)
+    const user = UserAggregateRoot.createUser(createUserRequest)
     const userAggregate = this.userApplicationAggregateFactory.createAggregateForEntity(
       user,
       command,

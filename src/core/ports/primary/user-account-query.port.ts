@@ -2,17 +2,17 @@ import { ReadUserAccountRequest } from '@core/modules/user/requests/read-user-ac
 import { Action } from '@infrastructure/bus/action/action'
 import { Query } from '@infrastructure/bus/query/query'
 
-interface UserAccountQueryProperties {
+interface UserAccountQueryPortProperties {
   data: ReadUserAccountRequest
   previousAction?: Action
 }
 
-export const USER_ACCOUNT_QUERY = 'UserAccountQuery'
+export const USER_ACCOUNT_QUERY = 'UserAccountQueryPort'
 
-export class UserAccountQuery extends Query<ReadUserAccountRequest> {
+export class UserAccountQueryPort extends Query<ReadUserAccountRequest> {
   public readonly data!: ReadUserAccountRequest
 
-  constructor({ previousAction, data }: UserAccountQueryProperties) {
+  constructor({ previousAction, data }: UserAccountQueryPortProperties) {
     super({
       type: USER_ACCOUNT_QUERY,
       previousAction,
