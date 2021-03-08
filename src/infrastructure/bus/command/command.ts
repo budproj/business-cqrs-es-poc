@@ -1,7 +1,4 @@
 import { Action } from '@infrastructure/bus/action/action'
+import { ObjectLiteral } from '@core/common/types/object-literal.type'
 
-import { CommandData } from './data'
-
-export abstract class Command<D extends CommandData = CommandData> extends Action<D> {
-  public readonly data!: D
-}
+export abstract class Command<D extends ObjectLiteral = ObjectLiteral> extends Action<D> {}

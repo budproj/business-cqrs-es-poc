@@ -1,39 +1,24 @@
-import { ActionData } from './data'
-import { ActionMetadata, UnmarshalledActionMetadata } from './metadata'
+import { ObjectLiteral } from '@core/common/types/object-literal.type'
+import { ActionMetadata } from './metadata'
 
-export interface ActionInterface<D> {
+export interface ActionInterface<D extends ObjectLiteral> {
   metadata: ActionMetadata
   data?: D
-
-  unmarshal: () => UnmarshalledAction
 }
 
-export interface ActionProperties<D> {
+export interface ActionProperties<D extends ObjectLiteral> {
   type: string
   previousAction?: Action
   data?: D
 }
 
-export interface UnmarshalledAction<D = any> {
-  metadata: UnmarshalledActionMetadata
-  data?: D
-}
-
-export abstract class Action<D extends ActionData = ActionData> implements ActionInterface<D> {
+export abstract class Action<D extends ObjectLiteral = ObjectLiteral>
+  implements ActionInterface<D> {
   public readonly metadata: ActionMetadata
   public readonly data?: D
 
   constructor({ type, previousAction, data }: ActionProperties<D>) {
     this.metadata = new ActionMetadata({ type, previousAction })
     this.data = data
-  }
-
-  public unmarshal() {
-    const unmarshalledAction: UnmarshalledAction = {
-      metadata: this.metadata.unmarshal(),
-      data: this.data?.unmarshal(),
-    }
-
-    return unmarshalledAction
   }
 }
