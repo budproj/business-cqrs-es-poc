@@ -11,7 +11,7 @@ interface EventStoreAdapterProviderInterface {
 
 // Since Event Store is not exporting ChannelCredentialOptions, we need to "mock" it
 // Source: https://github.com/EventStore/EventStore-Client-NodeJS/blob/aea591f1f073961c02c1a4492142ba4be7485977/src/Client/index.ts#L79
-interface ChannelCredentialOptions {
+type ChannelCredentialOptions = {
   insecure?: boolean
 }
 

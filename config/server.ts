@@ -1,4 +1,4 @@
-export interface ServerConfig {
+export type ServerConfig = {
   port: number
   networkAddress: string
   https: ServerHttpsConfig
@@ -6,17 +6,17 @@ export interface ServerConfig {
   prefix?: string
 }
 
-interface ServerHttpsConfig {
+type ServerHttpsConfig = {
   enabled: boolean
   credentialFilePaths?: ServerHttpsCredentialFilePaths
 }
 
-interface ServerHttpsCredentialFilePaths {
+type ServerHttpsCredentialFilePaths = {
   key: string
   cert: string
 }
 
-interface ServerCORSConfig {
+type ServerCORSConfig = {
   credentialsFlag: boolean
   allowedOrigins: string | string[]
 }

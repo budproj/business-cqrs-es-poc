@@ -1,18 +1,18 @@
-export interface EventStoreConfig {
+export type EventStoreConfig = {
   cluster: EventStoreClusterConfig
   credential: EventStoreCredentialConfig
 }
 
-interface EventStoreClusterConfig {
+type EventStoreClusterConfig = {
   endpoint: EventStoreClusterEndpointConfig
 }
 
-interface EventStoreClusterEndpointConfig {
+type EventStoreClusterEndpointConfig = {
   host: string
   port: number
 }
 
-interface EventStoreCredentialConfig {
+type EventStoreCredentialConfig = {
   insecure: boolean
 }
 

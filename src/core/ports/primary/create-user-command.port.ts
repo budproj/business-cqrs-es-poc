@@ -1,12 +1,12 @@
 import { Action } from '@infrastructure/bus/action/action'
 import { Command } from '@infrastructure/bus/command/command'
 
-interface CreateUserCommandPortProperties {
+type CreateUserCommandPortProperties = {
   data: CreateUserCommandPortData
   previousAction?: Action
 }
 
-interface CreateUserCommandPortData {
+type CreateUserCommandPortData = {
   firstName: string
 }
 

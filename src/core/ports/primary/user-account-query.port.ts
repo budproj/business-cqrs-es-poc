@@ -2,7 +2,7 @@ import { ReadUserAccountRequest } from '@core/modules/user/requests/read-user-ac
 import { Action } from '@infrastructure/bus/action/action'
 import { Query } from '@infrastructure/bus/query/query'
 
-interface UserAccountQueryPortProperties {
+type UserAccountQueryPortProperties = {
   data: ReadUserAccountRequest
   previousAction?: Action
 }

@@ -2,7 +2,7 @@ import { ObjectLiteral } from '@core/common/types/object-literal.type'
 
 import { EXCEPTION } from './constants'
 
-interface SerializedException {
+type SerializedException = {
   name: string
   message: string
   stack?: string

@@ -1,6 +1,6 @@
 import { IsUUID } from 'class-validator'
 
-interface ReadUserAccountRequestProperties {
+type ReadUserAccountRequestProperties = {
   aggregateID: string
 }
 

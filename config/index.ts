@@ -5,7 +5,7 @@ import { graphqlConfig, GraphQLConfig } from './graphql'
 import { loggingConfig, LoggingConfig } from './logging'
 import { serverConfig, ServerConfig } from './server'
 
-export interface Config {
+export type Config = {
   server: ServerConfig
   logging: LoggingConfig
   graphql: GraphQLConfig

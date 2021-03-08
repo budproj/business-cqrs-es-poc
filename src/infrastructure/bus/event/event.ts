@@ -9,10 +9,10 @@ interface EventInterface<D> extends ActionInterface<D> {
   data: D
 }
 
-interface EventProperties<D> extends ActionProperties<D> {
+type EventProperties<D> = {
   aggregateID: ID
   version: number
-}
+} & ActionProperties<D>
 
 export abstract class Event<D extends JSONType = JSONType>
   extends Action<D>

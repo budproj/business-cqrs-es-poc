@@ -10,10 +10,10 @@ interface EventMetadataInterface extends ActionMetadataInterface {
   version: number
 }
 
-interface EventMetadataProperties extends ActionMetadataProperties {
+type EventMetadataProperties = {
   aggregateID: ID
   version: number
-}
+} & ActionMetadataProperties
 
 export class EventMetadata extends ActionMetadata implements EventMetadataInterface {
   public readonly aggregateID: ID

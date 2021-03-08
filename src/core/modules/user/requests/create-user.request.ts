@@ -2,7 +2,7 @@ import { Length } from 'class-validator'
 
 import { UserFirstName } from '@core/modules/user/domain/value-objects/first-name.value-object'
 
-interface CreateUserRequestProperties {
+type CreateUserRequestProperties = {
   firstName: string
 }
 

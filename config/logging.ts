@@ -1,6 +1,6 @@
 import { LOG_LEVEL } from 'lib/logger'
 
-export interface LoggingConfig {
+export type LoggingConfig = {
   level: LOG_LEVEL
   serviceName: string
 }

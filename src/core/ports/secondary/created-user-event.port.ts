@@ -6,7 +6,7 @@ import { Event } from '@infrastructure/bus/event/event'
 export const CREATED_USER_EVENT = 'CreatedUser'
 const EVENT_VERSION = 1
 
-interface CreatedUserEventPortProperties {
+type CreatedUserEventPortProperties = {
   data: UnmarshalledUserEntity
   previousAction: Action
   aggregateID: ID

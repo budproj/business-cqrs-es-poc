@@ -5,7 +5,7 @@ export interface ActionInterface<D> {
   data?: D
 }
 
-export interface ActionProperties<D> {
+export type ActionProperties<D> = {
   type: string
   previousAction?: Action
   data?: D

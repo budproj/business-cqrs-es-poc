@@ -12,11 +12,11 @@ import { buildLogger } from '@lib/logger'
 
 import { BootstrapModule } from './bootstrap.module'
 
-interface CustomFastifyServerOptions {
+type CustomFastifyServerOptions = {
   https: CustomFastifyServerHTTPSOptions
 }
 
-interface CustomFastifyServerHTTPSOptions {
+type CustomFastifyServerHTTPSOptions = {
   key: Buffer
   cert: Buffer
 }

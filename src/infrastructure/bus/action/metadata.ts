@@ -8,7 +8,7 @@ export interface ActionMetadataInterface {
   timestamp: number
 }
 
-export interface ActionMetadataProperties {
+export type ActionMetadataProperties = {
   type: string
   previousAction?: Action
 }

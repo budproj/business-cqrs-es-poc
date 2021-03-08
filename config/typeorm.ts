@@ -1,7 +1,7 @@
 import { NamingStrategyInterface } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
-export interface TypeORMConfig {
+export type TypeORMConfig = {
   type: string
   endpoint: TypeORMEndpointConfig
   authentication: TypeORMAuthenticationConfig
@@ -10,36 +10,36 @@ export interface TypeORMConfig {
   convention: TypeORMConventionConfig
 }
 
-interface TypeORMEndpointConfig {
+type TypeORMEndpointConfig = {
   host: string
   port: number
   database: string
 }
 
-interface TypeORMAuthenticationConfig {
+type TypeORMAuthenticationConfig = {
   user?: string
   password?: string
 }
 
-interface TypeORMPatternConfig {
+type TypeORMPatternConfig = {
   file: TypeORMFilePatternConfig
   directory: TypeORMDirectoryPatternConfig
 }
 
-interface TypeORMFilePatternConfig {
+type TypeORMFilePatternConfig = {
   entities: string[]
   migrations: string[]
 }
 
-interface TypeORMDirectoryPatternConfig {
+type TypeORMDirectoryPatternConfig = {
   migrations: string
 }
 
-interface TypeORMLoggingConfig {
+type TypeORMLoggingConfig = {
   enabled: boolean
 }
 
-interface TypeORMConventionConfig {
+type TypeORMConventionConfig = {
   naming?: NamingStrategyInterface
 }
 

@@ -1,5 +1,5 @@
 export type Primitives = string | number | boolean
 
-export interface DomainPrimitive<T = Primitives> {
+export type DomainPrimitive<T = Primitives> = {
   value: T
 }
