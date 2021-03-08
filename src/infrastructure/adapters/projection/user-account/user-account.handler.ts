@@ -26,9 +26,9 @@ export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEv
 
     const projectionData = {
       aggregateID: event.metadata.aggregateID.value,
-      firstName: event.data.user.firstName.value,
-      createdAt: event.data.user.createdAt?.value,
-      updatedAt: event.data.user.updatedAt?.value,
+      firstName: event.data.firstName.value,
+      createdAt: event.data.createdAt.value,
+      updatedAt: event.data.updatedAt.value,
     }
 
     await this.repository.insert(projectionData)

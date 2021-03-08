@@ -19,7 +19,7 @@ export interface EntityInterface<T extends EntityProperties> {
   unmarshal: () => any
 }
 
-export abstract class Entity<T extends EntityProperties>
+export abstract class Entity<T extends EntityProperties = EntityProperties>
   extends DomainObject
   implements EntityInterface<T> {
   public readonly id: ID

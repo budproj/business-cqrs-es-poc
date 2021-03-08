@@ -2,11 +2,11 @@ import { EventData, jsonEvent } from '@eventstore/db-client'
 import { Injectable } from '@nestjs/common'
 
 import { EventStoreAdapterProvider } from '@infrastructure/adapters/event-store/event-store.provider'
-import { Event } from '@infrastructure/bus/event/event'
+import { UnmarshalledEvent } from '@infrastructure/bus/event/event'
 
 interface EventStorePortInterface {
   publish: (event: EventData, streamName: string) => Promise<void>
-  marshalEvent: (event: Event) => EventData
+  marshalEvent: (event: UnmarshalledEvent) => EventData
 }
 
 @Injectable()
@@ -17,13 +17,12 @@ export class EventStorePort implements EventStorePortInterface {
     await this.eventStore.client.appendToStream(streamName, event)
   }
 
-  public marshalEvent(event: Event) {
-    const unmarshalledEvent = event.unmarshal()
+  public marshalEvent(event: UnmarshalledEvent) {
     const jsonEventPayload = {
-      id: unmarshalledEvent.metadata.id,
-      type: unmarshalledEvent.metadata.type,
-      metadata: unmarshalledEvent.metadata,
-      data: unmarshalledEvent.data,
+      id: event.metadata.id,
+      type: event.metadata.type,
+      metadata: event.metadata,
+      data: event.data,
     }
 
     return jsonEvent(jsonEventPayload)

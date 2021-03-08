@@ -2,14 +2,14 @@ import { Entity, EntityInterface, EntityProperties } from '@core/common/domain/e
 import { UserFirstName } from '@core/modules/user/domain/value-objects/first-name.value-object'
 
 interface UserEntityInterface extends EntityInterface<UserEntityProperties> {
-  unmarshal: () => UnmarshalledUser
+  unmarshal: () => UnmarshalledUserEntity
 }
 
 export interface UserEntityProperties extends EntityProperties {
   firstName: UserFirstName
 }
 
-export interface UnmarshalledUser {
+export interface UnmarshalledUserEntity {
   id: string
   firstName: string
   createdAt: Date
@@ -26,7 +26,7 @@ export class UserEntity extends Entity<UserEntityProperties> implements UserEnti
   }
 
   public unmarshal() {
-    const unmarshalledUser: UnmarshalledUser = {
+    const unmarshalledUser: UnmarshalledUserEntity = {
       id: this.id.unmarshal(),
       firstName: this.firstName.unmarshal(),
       createdAt: this.createdAt.unmarshal(),

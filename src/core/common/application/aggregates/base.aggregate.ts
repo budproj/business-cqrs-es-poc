@@ -1,62 +1,57 @@
 import { Logger } from '@nestjs/common'
-import { AggregateRoot } from '@nestjs/cqrs'
+import { AggregateRoot, EventBus } from '@nestjs/cqrs'
 
+import { Entity } from '@core/common/domain/entities/base.entity'
 import { ID } from '@core/common/domain/value-objects/id.value-object'
+import { ArgumentNotProvidedException } from '@core/common/exceptions/argument-not-provided.exception'
 import { EventStorePort } from '@core/ports/secondary/event-store.port'
 import { Command } from '@infrastructure/bus/command/command'
-import { Event } from '@infrastructure/bus/event/event'
+import { Event, UnmarshalledEvent } from '@infrastructure/bus/event/event'
 
 const AGGREGATE_SEPARATOR = '#'
 
 export interface ApplicationAggregateInterface {
-  aggregateID: ID
   aggregateName: string
 
-  clearEvents: () => void
-  dispatchEvent: (event: Event, aggregateName: string) => Promise<void>
+  publish: <E extends Event = Event>(event: E) => Promise<void>
 }
 
-export abstract class ApplicationAggregate<P = any>
-  extends AggregateRoot
+export abstract class ApplicationAggregate
+  extends AggregateRoot<Event>
   implements ApplicationAggregateInterface {
   public readonly aggregateName!: string
+  protected readonly aggregateID: ID
   protected readonly logger!: Logger
-  protected readonly command!: Command
-  private _events: Event[] = []
 
   constructor(
-    public readonly aggregateID: ID,
-    protected readonly properties: P,
+    protected readonly entity: Entity,
+    protected readonly command: Command,
     protected readonly eventStorePort: EventStorePort,
+    protected readonly eventBus: EventBus<Event>,
   ) {
     super()
+
+    this.aggregateID = entity.id
   }
 
-  get events(): Event[] {
-    return this._events
-  }
-
-  public clearEvents(): void {
-    this._events = []
-  }
-
-  public async dispatchEvent(event: Event) {
+  public async publish(event: Event) {
     this.logger.log({
       event,
-      message: 'Dispatching event',
+      message: 'Publishing event',
     })
 
-    this.addEvent(event)
-    super.apply(event)
+    const unmarshalledEvent = event.unmarshal()
 
-    await this.persistEvent(event)
+    await this.persistEvent(unmarshalledEvent)
+    await this.eventBus.publish(event)
   }
 
-  protected addEvent(event: Event): void {
-    this._events.push(event)
-  }
+  private async persistEvent(event: UnmarshalledEvent): Promise<void> {
+    if (!this.aggregateID)
+      throw new ArgumentNotProvidedException(
+        'You must define an aggregate ID before publishing an event',
+      )
 
-  private async persistEvent(event: Event): Promise<void> {
     const streamName = [this.aggregateName, AGGREGATE_SEPARATOR, this.aggregateID.value].join('')
     const marshalledEvent = this.eventStorePort.marshalEvent(event)
 

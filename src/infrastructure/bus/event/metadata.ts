@@ -18,7 +18,7 @@ interface EventMetadataProperties extends ActionMetadataProperties {
   version: number
 }
 
-interface UnmarshalledEventMetadata extends UnmarshalledActionMetadata {
+export interface UnmarshalledEventMetadata extends UnmarshalledActionMetadata {
   aggregateID: string
   version: number
 }

@@ -1,18 +1,16 @@
 import { Logger } from '@nestjs/common'
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 
 import { UserAggregateRoot } from '@core/modules/user/domain/user.aggregate-root'
-import { UserAggregate } from '@core/modules/user/user.aggregate'
+import { UserApplicationAggregateFactory } from '@core/modules/user/user-aggregate.factory'
 import { CreateUserCommand, CREATE_USER_COMMAND } from '@core/ports/primary/create-user.command'
-import { EventStorePort } from '@core/ports/secondary/event-store.port'
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler implements ICommandHandler<CreateUserCommand> {
   private readonly logger = new Logger(CreateUserCommandHandler.name)
 
   constructor(
-    protected readonly eventStorePort: EventStorePort,
-    private readonly eventPublisher: EventPublisher,
+    protected readonly userApplicationAggregateFactory: UserApplicationAggregateFactory,
   ) {}
 
   public async execute(command: CreateUserCommand) {
@@ -23,9 +21,10 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
 
     const marshalledCommandData = command.data.marshal()
     const user = UserAggregateRoot.createUser(marshalledCommandData)
-
-    const userAggregateInstance = new UserAggregate(user, command, this.eventStorePort)
-    const userAggregate = this.eventPublisher.mergeObjectContext(userAggregateInstance)
+    const userAggregate = this.userApplicationAggregateFactory.createAggregateForEntity(
+      user,
+      command,
+    )
 
     await userAggregate.create(user)
     userAggregate.commit()
