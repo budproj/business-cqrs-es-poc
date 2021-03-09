@@ -1,6 +1,5 @@
 import { JSONType } from '@eventstore/db-client'
 
-import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { Action, ActionInterface, ActionProperties } from '@infrastructure/bus/action/action'
 
 import { EventMetadata } from './metadata'
@@ -10,7 +9,7 @@ interface EventInterface<D> extends ActionInterface<D> {
 }
 
 type EventProperties<D> = {
-  aggregateID: ID
+  aggregateID: string
   version: number
 } & ActionProperties<D>
 

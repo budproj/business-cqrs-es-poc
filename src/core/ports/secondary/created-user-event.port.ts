@@ -1,4 +1,3 @@
-import { ID } from '@core/common/domain/value-objects/id.value-object'
 import { UnmarshalledUserEntity } from '@core/modules/user/domain/entities/user.entity'
 import { Action } from '@infrastructure/bus/action/action'
 import { Event } from '@infrastructure/bus/event/event'
@@ -9,7 +8,7 @@ const EVENT_VERSION = 1
 type CreatedUserEventPortProperties = {
   data: UnmarshalledUserEntity
   previousAction: Action
-  aggregateID: ID
+  aggregateID: string
 }
 
 export class CreatedUserEventPort extends Event<UnmarshalledUserEntity> {

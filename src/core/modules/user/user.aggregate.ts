@@ -27,7 +27,7 @@ export class UserApplicationAggregate
 
     const eventData = user.unmarshal()
     const event = new CreatedUserEventPort({
-      aggregateID: user.id,
+      aggregateID: eventData.id,
       data: eventData,
       previousAction: this.command,
     })

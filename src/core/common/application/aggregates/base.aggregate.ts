@@ -8,7 +8,7 @@ import { EventStorePort } from '@core/ports/secondary/event-store.port'
 import { Command } from '@infrastructure/bus/command/command'
 import { Event } from '@infrastructure/bus/event/event'
 
-const AGGREGATE_SEPARATOR = '#'
+const AGGREGATE_SEPARATOR = '-'
 
 export interface ApplicationAggregateInterface {
   aggregateName: string

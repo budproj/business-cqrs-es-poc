@@ -31,7 +31,7 @@ export class UserAccountProjectionHandler implements IEventHandler<CreatedUserEv
     })
 
     const projectionData = {
-      aggregateID: event.metadata.aggregateID.value,
+      aggregateID: event.metadata.aggregateID,
       firstName: event.data.firstName,
       createdAt: event.data.createdAt,
       updatedAt: event.data.updatedAt,

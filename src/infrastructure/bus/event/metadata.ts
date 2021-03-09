@@ -1,4 +1,3 @@
-import { ID } from '@core/common/domain/value-objects/id.value-object'
 import {
   ActionMetadata,
   ActionMetadataInterface,
@@ -6,17 +5,17 @@ import {
 } from '@infrastructure/bus/action/metadata'
 
 interface EventMetadataInterface extends ActionMetadataInterface {
-  aggregateID: ID
+  aggregateID: string
   version: number
 }
 
 type EventMetadataProperties = {
-  aggregateID: ID
+  aggregateID: string
   version: number
 } & ActionMetadataProperties
 
 export class EventMetadata extends ActionMetadata implements EventMetadataInterface {
-  public readonly aggregateID: ID
+  public readonly aggregateID: string
   public readonly version: number
 
   constructor({ aggregateID, version, ...rest }: EventMetadataProperties) {
