@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@interface/*": ["src/interface/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@config": ["config/index"],
+      "@config/*": ["config/*"],
+      "@lib/*": ["lib/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "config/**/*.ts", "lib/**/*.ts"],
+  "preferences": {
+    "importModuleSpecifierPreference": "non-relative"
+  }
+}
